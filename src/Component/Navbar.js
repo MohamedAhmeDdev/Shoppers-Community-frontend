@@ -4,7 +4,7 @@ import logo from '../assets/d9691fbd-2061-4573-b2e9-85d30d67215f.jpeg'
 
 function Navbar() {
   return (
-    <div className="w-full bg-white">
+    <div className="w-full bg-blue-500">
       <div className="container mx-auto flex items-center justify-between">
           <img src={logo} alt="ShopHorizon Logo" className="h-12" />
           <nav className="space-x-8">

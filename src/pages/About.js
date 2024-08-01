@@ -32,14 +32,14 @@ function About() {
         <section className="text-center py-12">
           <h2 className="text-2xl font-bold mb-6">Customer’s Testimonials</h2>
           <div className="flex justify-center items-center space-x-4">
-            <button className="bg-red-500 text-white p-4 rounded-full"><i className="fas fa-chevron-left"></i></button>
+            
             <div className="bg-white p-6 rounded-full">
               <img src="https://pixabay.com/photos/cartoon-man-human-person-masculine-871669/" alt="Customer Image" className="rounded-full mx-auto mb-4" />
               <h3 className="text-xl font-bold">Group 1</h3>
               <p className="text-gray-600">Customer</p>
               <p className="mt-4">The best service I have come across and used so far, I would forever recommend to anyone</p>
             </div>
-            <button className="bg-red-500 text-white p-4 rounded-full"><i className="fas fa-chevron-right"></i></button>
+
           </div>
         </section>
       </main>
