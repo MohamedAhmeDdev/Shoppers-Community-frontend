@@ -8,11 +8,14 @@ function Contact() {
       {/* Main Content */}
       <main className="w-full py-16 px-4">
       <section className="text-center mb-12 relative">
-          <img
-            src="https://cdn.pixabay.com/photo/2016/11/22/19/17/buildings-1850129_1280.jpg"
-            alt="Cityscape"
-            className="w-full mb-6"
-          />
+      <div className="relative w-full mb-6" style={{ height: '450px' }}> 
+        <img
+          src="https://cdn.pixabay.com/photo/2016/11/22/19/17/buildings-1850129_1280.jpg"
+          alt="Cityscape"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      </div>
+
           <h1 className="absolute bottom-3/4 inset-0 flex items-center justify-center text-3xl font-bold text-black">Contact Us</h1>
         </section>
         <section className="grid grid-cols-1 md:grid-cols-3 text-center mb-12">
