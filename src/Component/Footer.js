@@ -29,11 +29,11 @@ function Footer() {
             <div class="lg:mx-auto text-left ">
                 <h4 class="text-lg text-gray-900 font-medium mb-7">Categories</h4>
                 <ul class="text-sm  transition-all duration-500">
-                    <li class="mb-6"><a href="javascript:;"  class="text-white hover:text-gray-900">Electronics</a></li>
-                    <li class="mb-6"><a href="javascript:;"  class=" text-white hover:text-gray-900">Sports & Outdoors</a></li>
-                    <li class="mb-6"><a href="javascript:;"  class=" text-white hover:text-gray-900">Clothing</a></li>
-                    <li class="mb-6"><a href="javascript:;"  class=" text-white hover:text-gray-900">Furniture</a></li>
-                    <li class="mb-6"><a href="javascript:;"  class=" text-white hover:text-gray-900">Others</a></li>
+                    <li class="mb-6"><a href="/"  class="text-white hover:text-gray-900">Electronics</a></li>
+                    <li class="mb-6"><a href="/"  class=" text-white hover:text-gray-900">Sports & Outdoors</a></li>
+                    <li class="mb-6"><a href="/"  class=" text-white hover:text-gray-900">Clothing</a></li>
+                    <li class="mb-6"><a href="/"  class=" text-white hover:text-gray-900">Furniture</a></li>
+                    <li class="mb-6"><a href="/"  class=" text-white hover:text-gray-900">Others</a></li>
                 </ul>
             </div>
           
@@ -41,10 +41,10 @@ function Footer() {
             <div class="lg:mx-auto text-left ">
                 <h4 class="text-lg text-gray-900 font-medium mb-7">Subscribe</h4>
                 <p class="text-sm text-white leading-6 mb-7">Subscribe to get the latest news from us</p>
-                <a href="javascript:;"  class="flex items-center justify-center gap-2 border border-white rounded-full py-3 px-6 w-fit lg:mx-0  text-sm text-white font-semibold transition-all duration-500 hover:border-[#f7444e] hover:bg-[#f7444e]">Subscribe<svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <p   class="flex items-center justify-center gap-2 border border-white rounded-full py-3 px-6 w-fit lg:mx-0  text-sm text-white font-semibold transition-all duration-500 hover:border-[#f7444e] hover:bg-[#f7444e]">Subscribe<svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1.25 6L13.25 6M9.5 10.5L13.4697 6.53033C13.7197 6.28033 13.8447 6.15533 13.8447 6C13.8447 5.84467 13.7197 5.71967 13.4697 5.46967L9.5 1.5" stroke="#4F46E5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    </a>
+                    </p>
             </div>
         </div>
       
