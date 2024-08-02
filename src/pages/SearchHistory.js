@@ -20,7 +20,7 @@ function SearchHistory() {
             <div class="box px-8 py-2 border rounded-lg grid grid-cols-8 mb-7 cursor-pointer transition-all duration-500 hover:bg-blue-50 max-lg:max-w-xl max-lg:mx-auto">
 
                 <div class="col-span-8 sm:col-span-4 lg:col-span-1 sm:row-span-4 lg:row-span-1">
-                    <img src="https://pagedone.io/asset/uploads/1705474950.png" alt="earbuds image" class="max-lg:w-auto max-sm:mx-auto rounded-xl"/>
+                    <img src="https://pagedone.io/asset/uploads/1705474950.png" alt="earbuds" class="max-lg:w-auto max-sm:mx-auto rounded-xl"/>
                 </div>
                 <div
                     class="col-span-8 sm:col-span-4 lg:col-span-3 flex h-full justify-center pl-4 flex-col max-lg:items-center">
