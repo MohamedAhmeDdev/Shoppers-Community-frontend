@@ -1,22 +1,22 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import App from "./App";
+import App from "../App";  // Adjusted the import path for App
 import userEvent from "@testing-library/user-event";
 
 // Mock components to simplify the test
-jest.mock("./Component/Navbar", () => () => <div>Navbar</div>);
-jest.mock("./pages/Home", () => () => <div>Home Page</div>);
-jest.mock("./pages/About", () => () => <div>About Page</div>);
-jest.mock("./pages/Contact", () => () => <div>Contact Page</div>);
-jest.mock("./pages/Category", () => () => <div>Category Page</div>);
-jest.mock("./pages/ProductFilter", () => () => <div>Product Filter Page</div>);
-jest.mock("./pages/SearchHistory", () => () => <div>Search History Page</div>);
-jest.mock("./Auth/Login", () => () => <div>Login Page</div>);
-jest.mock("./Auth/ForgotPassword", () => () => <div>Forgot Password Page</div>);
-jest.mock("./Auth/ResetPassword", () => () => <div>Reset Password Page</div>);
-jest.mock("./Auth/Register", () => () => <div>Register Page</div>);
-jest.mock("./Component/Footer", () => () => <div>Footer</div>);
+jest.mock("../Component/Navbar", () => () => <div>Navbar</div>);
+jest.mock("../pages/Home", () => () => <div>Home Page</div>);
+jest.mock("../pages/About", () => () => <div>About Page</div>);
+jest.mock("../pages/Contact", () => () => <div>Contact Page</div>);
+jest.mock("../pages/Category", () => () => <div>Category Page</div>);
+jest.mock("../pages/ProductFilter", () => () => <div>Product Filter Page</div>);
+jest.mock("../pages/SearchHistory", () => () => <div>Search History Page</div>);
+jest.mock("../Auth/Login", () => () => <div>Login Page</div>);
+jest.mock("../Auth/ForgotPassword", () => () => <div>Forgot Password Page</div>);
+jest.mock("../Auth/ResetPassword", () => () => <div>Reset Password Page</div>);
+jest.mock("../Auth/Register", () => () => <div>Register Page</div>);
+jest.mock("../Component/Footer", () => () => <div>Footer</div>);
 
 describe("App component", () => {
   test("renders Home page by default", () => {
