@@ -1,24 +1,9 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
-
-
+import ReactDOM from 'react-dom';
 import App from '../App';
 
-test('renders App without crashing', () => {
+test('App component should be importable and render without errors', () => {
   const div = document.createElement('div');
-  document.body.appendChild(div);
-
-  const { unmount } = render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>,
-    {
-      container: div,
-    }
-  );
-
-  // Clean up
-  unmount();
-  document.body.removeChild(div);
+  ReactDOM.render(<App />, div);
+  ReactDOM.unmountComponentAtNode(div);
 });
