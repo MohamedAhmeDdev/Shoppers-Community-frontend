@@ -34,12 +34,12 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/Category" element={<Category />} />
-            <Route path="/filter" element={<ProductFilter />} />
+            <Route path="/filter/:id" element={<ProductFilter />} />
             <Route path="/history" element={<SearchHistory />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
-          <Route path="/resetPassword" element={<ResetPassword />} />
+          <Route path="/resetPassword/:token" element={<ResetPassword />} />
           <Route path="/register" element={<Register />} />
         </Routes>
       </BrowserRouter>

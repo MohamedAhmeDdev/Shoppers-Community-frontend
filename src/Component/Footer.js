@@ -1,7 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import logo from '../assets/d9691fbd-2061-4573-b2e9-85d30d67215f.jpeg';
+import {Link} from 'react-router-dom'
 
 function Footer() {
+    const[category , setCategory] = useState([])
+
+  
+        useEffect(() => {
+            const fetchCategories = async () => {
+              try {
+                const response = await fetch('https://shoppers-community-server.onrender.com/categories');
+                if (!response.ok) {
+                  throw new Error('Failed to fetch data.');
+                }
+                const data = await response.json();
+                setCategory(data);
+                console.log('Initial product list:', data);
+              } catch (error) {
+                console.error('Error fetching data:', error);
+              }
+            };
+          
+            fetchCategories();
+          }, []);
+    
   return (
     <footer className="w-full">
     <div className=" px-4 sm:px-6 lg:px-8 bg-blue-400">
@@ -29,11 +51,9 @@ function Footer() {
             <div className="lg:mx-auto text-left ">
                 <h4 className="text-lg text-gray-900 font-medium mb-7">Categories</h4>
                 <ul className="text-sm  transition-all duration-500">
-                    <li className="mb-6"><a href="/"  className="text-white hover:text-gray-900">Electronics</a></li>
-                    <li className="mb-6"><a href="/"  className=" text-white hover:text-gray-900">Sports & Outdoors</a></li>
-                    <li className="mb-6"><a href="/"  className=" text-white hover:text-gray-900">Clothing</a></li>
-                    <li className="mb-6"><a href="/"  className=" text-white hover:text-gray-900">Furniture</a></li>
-                    <li className="mb-6"><a href="/"  className=" text-white hover:text-gray-900">Others</a></li>
+                    {category.map((category) => (
+                    <li className="mb-6"><Link to={`/filter/${category.id}`}  className="text-white hover:text-gray-900">{category.name}</Link></li>
+                    ))}
                 </ul>
             </div>
           
