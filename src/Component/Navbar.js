@@ -64,10 +64,14 @@ function Navbar() {
             <Link to="/history" className="nav-link block md:inline-block text-white text-md font-semibold hover:text-black px-3 py-3 md:border-none">Search History</Link>
             <Link to="/about" className="nav-link block md:inline-block text-white text-md font-semibold hover:text-black px-3 py-3 md:border-none">About us</Link>
             <Link to="/contact" className="nav-link block md:inline-block text-white text-md font-semibold hover:text-black px-3 py-3 md:border-none">Contact</Link>
+            <Link to="/login" className="nav-link block md:inline-block text-white text-md font-semibold hover:text-black px-3 py-3 md:border-none">Sign Up</Link>            
           </div>
         </div>
 
-        <Link to="/login" class="py- px-2 rounded-md bg-white text-black hover:to-blue-600 transition-all duration-300">Sign Up</Link>
+        <Link to="/login" className="py-2 px-2 rounded-md bg-white text-black hover:text-blue-600 transition-all duration-300 hidden sm:block"> Sign Up</Link>
+
+        
+
       </nav>
     </div>
   );
