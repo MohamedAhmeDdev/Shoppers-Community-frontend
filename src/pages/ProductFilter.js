@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import CategoryProduct from '../Component/CategoryProduct';
+import CategoryProductFilter from '../Component/CategoryProductFilter';
+import {SERVER_URL} from '../constant'
 
 function ProductFilter() {
-    const[error , setError] = useState('')
+    const [error, setError] = useState('');
     const [productList, setProductList] = useState([]);
     const [filterProductList, setFilterProductList] = useState([]);
     const [product, setProduct] = useState([]);
+    const [showFiltered, setShowFiltered] = useState(false);
+    const { category_id } = useParams();
     const [filters, setFilters] = useState({
         product: '',
         priceMin: '',
@@ -13,44 +18,43 @@ function ProductFilter() {
         rating: '',
         paymentMethod: ''
     });
-    const [showFiltered, setShowFiltered] = useState(false);
-    const { category_id } = useParams();
-    
+    const [tempFilters, setTempFilters] = useState({
+        product: '',
+        priceMin: '',
+        priceMax: '',
+        rating: '',
+        paymentMethod: ''
+    });
+
 
     useEffect(() => {
-      const fetchCategories = async () => {
-        try {
-          const response = await fetch(`http://127.0.0.1:5555/categories/${category_id}`);
-          
-          if (!response.ok) {
-            throw new Error('Failed to fetch data.');
-          }
-          const data = await response.json();
-          setProduct(data.product_names);
-          setProductList(data.products_by_shop);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        }
-      };
+        const fetchCategories = async () => {
+            try {
+                const response = await fetch(`${SERVER_URL}/categories/${category_id}`);
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data.');
+                }
+                const data = await response.json();
+                setProduct(data.product_names);
+                setProductList(data.products_by_shop);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
     
-      fetchCategories();
+        fetchCategories();
     }, [category_id]);
-    
-   
-    const handleFilterChange = (e) => {
-      const { name, value } = e.target;
-      setFilters((prevFilters) => ({ ...prevFilters, [name]: value }));
-    };
-    
- 
+
+
     useEffect(() => {
         const filterApi = async () => {
             try {
                 const queryString = new URLSearchParams({
-                    ...filters, 
+                    ...filters,
                     category_id
                 }).toString();
-                const response = await fetch(`http://127.0.0.1:5555/filtered-products?${queryString}`, {
+                const response = await fetch(`${SERVER_URL}/filtered-products?${queryString}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -64,16 +68,27 @@ function ProductFilter() {
                 setFilterProductList(data.products);
                 
             } catch (error) {
-                setError('No products found')
+                setError('No products found');
             }
         };
-        
+
         if (Object.values(filters).some(value => value !== '')) {
             filterApi();
         }
     }, [filters, category_id]);
     
-    // Reset filters
+
+    const handleFilterChange = (e) => {
+        const { name, value } = e.target;
+        setTempFilters((prevFilters) => ({ ...prevFilters, [name]: value }));
+    };
+
+
+    const handleApplyFilters = () => {
+        setFilters(tempFilters);
+        setShowFiltered(true);
+    };
+
     const handleReset = () => {
         setFilters({
             product: '',
@@ -82,14 +97,19 @@ function ProductFilter() {
             rating: '',
             paymentMethod: ''
         });
+        setTempFilters({
+            product: '',
+            priceMin: '',
+            priceMax: '',
+            rating: '',
+            paymentMethod: ''
+        });
         setShowFiltered(false);
     };
-    
+
     return (
         <section className="py-24 relative">
-            <div className="w-full max-w-7xl mx-auto px-4 md:px-8">
-           
-              
+            <div className="w-full max-w-7xl mx-auto px-4 md:px-8">              
                 <div className="grid grid-cols-12">
                     <div className="col-span-12 md:col-span-3 w-full max-md:max-w-md max-md:mx-auto">
                         <div className="mt-7 box rounded-xl border border-gray-300 bg-white p-6 w-full md:max-w-sm">
@@ -112,7 +132,7 @@ function ProductFilter() {
                                             type="radio"
                                             name="product"
                                             value={item}
-                                            checked={filters.product === item}
+                                            checked={tempFilters.product === item}
                                             onChange={handleFilterChange}
                                             className="w-5 h-5 appearance-none border border-gray-300 rounded-md mr-2 hover:border-indigo-500 hover:bg-indigo-100 checked:bg-indigo-100"
                                         />
@@ -131,7 +151,7 @@ function ProductFilter() {
                                         id="price-min" 
                                         type="number" 
                                         name="priceMin"
-                                        value={filters.priceMin}
+                                        value={tempFilters.priceMin}
                                         onChange={handleFilterChange} 
                                         className="px-2 focus:border-indigo-200 ml-3 w-40 outline-none appearance-none border border-gray-300 rounded-md mr-2 hover:border-indigo-500 hover:bg-indigo-100"
                                     />
@@ -142,7 +162,7 @@ function ProductFilter() {
                                         id="price-max" 
                                         type="number" 
                                         name="priceMax"
-                                        value={filters.priceMax}
+                                        value={tempFilters.priceMax}
                                         onChange={handleFilterChange} 
                                         className="px-2 focus:border-indigo-200 ml-3 w-40 outline-none appearance-none border border-gray-300 rounded-md mr-2 hover:border-indigo-500 hover:bg-indigo-100"
                                     />
@@ -158,7 +178,7 @@ function ProductFilter() {
                                             type="radio" 
                                             name="rating"
                                             value={rating} 
-                                            checked={filters.rating === rating.toString()}
+                                            checked={tempFilters.rating === rating.toString()}
                                             onChange={handleFilterChange}
                                             className="w-5 h-5 appearance-none border border-gray-300 rounded-md mr-2 hover:border-indigo-500 hover:bg-indigo-100 checked:bg-indigo-100"
                                         />
@@ -176,7 +196,7 @@ function ProductFilter() {
                                             type="radio" 
                                             name="paymentMethod"
                                             value={method} 
-                                            checked={filters.paymentMethod === method}
+                                            checked={tempFilters.paymentMethod === method}
                                             onChange={handleFilterChange}
                                             className="w-5 h-5 appearance-none border border-gray-300 rounded-md mr-2 hover:border-indigo-500 hover:bg-indigo-100 checked:bg-indigo-100"
                                         />
@@ -186,7 +206,7 @@ function ProductFilter() {
                             </div>
 
                             <button
-                                onClick={() => setShowFiltered(true)}
+                                onClick={handleApplyFilters}
                                 className="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500"
                             >
                                 Apply Filters
@@ -196,77 +216,9 @@ function ProductFilter() {
                     
                     <div className="col-span-12 md:col-span-9">
                         {showFiltered ? (
-                            <div>
-                                <h2 className="text-xl font-semibold mb-4">Filtered Products</h2>
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                    {filterProductList.length > 0 ? (
-                                        filterProductList.map((product, index) => (
-                                            <div key={index} className="relative m-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border shadow-md bg-white">
-                                                    <a className="relative flex h-60 overflow-hidden" href="#">
-                                                    <img className="object-cover w-full h-full" src={product.product_image} alt={`Image of ${product.name}`} />
-                                                    </a>
-                                                    <div className="mt-4 px-5 pb-5">
-                                                    <h5 className="text-md tracking-tight text-slate-900"><span className='font-bold'>Shop name:</span> {product.shop.name}</h5>
-                                                        <h5 className="text-md tracking-tight text-slate-900">{product.name}</h5>
-                                                    <div className="mt-2 mb-5 flex items-center justify-between">
-                                                        <p>
-                                                        <span className="text-md text-slate-900">${product.price.toFixed(2)}</span>
-                                                        </p>
-                                                        <div className="flex items-center">
-                                                        {Array.from({ length: Math.round(product.ratings) }).map((_, i) => (
-                                                            <svg key={i} aria-hidden="true" className="h-5 w-5 text-yellow-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                                                            </svg>
-                                                        ))}
-                                                        <span className="mr-2 ml-3 rounded bg-yellow-200 px-2.5 py-0.5 text-xs font-semibold">{product.ratings.toFixed(1)}</span>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                </div>
-                                        ))
-                                    ) : (
-                                        <p className="text-gray-600 text-center">{error}</p>
-                                    )}
-                                </div>
-                            </div>
+                            <CategoryProductFilter filterProductList={filterProductList} error={error} />
                         ) : (
-                            <div>
-                                  
-                                <h2 className="text-xl font-semibold mb-4">All Products</h2>
-                                <div class="col-span-12 md:col-span-9">
-              
-                                        {Object.entries(productList).map(([shopName, { products }]) => (
-                                            <div key={shopName} className="w-full">
-                                            <h2 className="text-lg font-bold text-gray-900 pl-10 mb-4">{shopName}</h2>
-                                            <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-5">
-                                                {products.map(product => (
-                                                <div key={product.id} className="relative m-5 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border shadow-md bg-white">
-                                                    <a className="relative flex h-60 overflow-hidden" href="#">
-                                                    <img className="object-cover w-full h-full" src={product.product_image} alt={`Image of ${product.name}`} />
-                                                    </a>
-                                                    <div className="mt-4 px-5 pb-5">
-                                                        <h5 className="text-md tracking-tight text-slate-900">{product.name}</h5>
-                                                    <div className="mt-2 mb-5 flex items-center justify-between">
-                                                        <p>
-                                                        <span className="text-md text-slate-900">${product.price.toFixed(2)}</span>
-                                                        </p>
-                                                        <div className="flex items-center">
-                                                        {Array.from({ length: Math.round(product.ratings) }).map((_, i) => (
-                                                            <svg key={i} aria-hidden="true" className="h-5 w-5 text-yellow-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                                                            </svg>
-                                                        ))}
-                                                        <span className="mr-2 ml-3 rounded bg-yellow-200 px-2.5 py-0.5 text-xs font-semibold">{product.ratings.toFixed(1)}</span>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                </div>
-                                                ))}
-                                            </div>
-                                            </div>
-                                        ))}
-                                </div>
-                            </div>
+                            <CategoryProduct productList={productList} />
                         )}
                     </div>
                 </div>
@@ -276,4 +228,3 @@ function ProductFilter() {
 }
 
 export default ProductFilter;
-

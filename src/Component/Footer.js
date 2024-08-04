@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import logo from '../assets/d9691fbd-2061-4573-b2e9-85d30d67215f.jpeg';
 import {Link} from 'react-router-dom'
+import {SERVER_URL} from '../constant'
 
 function Footer() {
     const[category , setCategory] = useState([])
@@ -9,7 +10,7 @@ function Footer() {
         useEffect(() => {
             const fetchCategories = async () => {
               try {
-                const response = await fetch('https://shoppers-community-server.onrender.com/categories');
+                const response = await fetch(`${SERVER_URL}/categories`);
                 if (!response.ok) {
                   throw new Error('Failed to fetch data.');
                 }
