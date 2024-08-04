@@ -11,7 +11,7 @@ function AuthenticateUser() {
   useEffect(() => {
     const verifyUser = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:5555/verify/${token}`);
+        const response = await fetch(`https://shoppers-community-server.onrender.com/verify/${token}`);
         if (!response.ok) {
           throw new Error('Failed to verify the user.');
         }

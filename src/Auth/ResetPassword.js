@@ -23,7 +23,7 @@ function ResetPassword() {
     }
 
     try {
-      const response = await fetch(`http://127.0.0.1:5555/reset-password/${token}`, {
+      const response = await fetch(`https://shoppers-community-server.onrender.com/reset-password/${token}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

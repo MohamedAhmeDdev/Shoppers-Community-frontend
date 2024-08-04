@@ -1,1 +1,1 @@
-export const SERVER_URL = "http://localhost:5555";
+export const SERVER_URL = "https://shoppers-community-server.onrender.com";
