@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import {SERVER_URL} from '../constant'
 
 function ResetPassword() {
   const [password, setPassword] = useState('');
@@ -23,7 +24,7 @@ function ResetPassword() {
     }
 
     try {
-      const response = await fetch(`https://shoppers-community-server.onrender.com/reset-password/${token}`, {
+      const response = await fetch(`${SERVER_URL}/reset-password/${token}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
