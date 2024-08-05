@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {SERVER_URL} from '../constant'
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -17,7 +18,7 @@ function ForgotPassword() {
     
     // Simulate API call
     try {
-      const response = await fetch('http://127.0.0.1:5555/forgot-password', { // Replace with your actual API endpoint
+      const response = await fetch(`${SERVER_URL}/forgot-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email })

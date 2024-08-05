@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ClipLoader from 'react-spinners/ClipLoader';
+import {SERVER_URL} from '../constant'
 
 function Register() {
   const [first_name, setFirst_name] = useState('');
@@ -39,7 +40,7 @@ function Register() {
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:5555/register', {
+      const response = await fetch(`${SERVER_URL}/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
