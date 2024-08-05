@@ -1,6 +1,40 @@
 import React, { useState } from 'react';
 
 function ForgotPassword() {
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!email) {
+      setError('Please enter your email');
+      return;
+    }
+
+    setError('');
+    
+    // Simulate API call
+    try {
+      const response = await fetch('/api/forgot-password', { // Replace with your actual API endpoint
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      const result = await response.json();
+
+      if (!result.success) {
+        setError(result.message);
+      } else {
+        setSuccess('Password reset link sent!');
+        setEmail('');
+      }
+    } catch (error) {
+      setError('An unexpected error occurred');
+    }
+  };
+
   return (
     <div className="min-h-screen py-20 bg-gradient-to-r from-blue-100 to-blue-400">
       <div className="container flex-1 flex flex-col items-center max-w-lg mx-auto px-4 py-28">
