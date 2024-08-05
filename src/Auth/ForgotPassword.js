@@ -17,18 +17,18 @@ function ForgotPassword() {
     
     // Simulate API call
     try {
-      const response = await fetch('/api/forgot-password', { // Replace with your actual API endpoint
+      const response = await fetch('http://127.0.0.1:5555/forgot-password', { // Replace with your actual API endpoint
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email })
       });
       const result = await response.json();
 
-      if (!result.success) {
-        setError(result.message);
-      } else {
+      if (result.success) {
         setSuccess('Password reset link sent!');
         setEmail('');
+      } else {
+        setError(result.message); 
       }
     } catch (error) {
       setError('An unexpected error occurred');
@@ -37,7 +37,7 @@ function ForgotPassword() {
 
   return (
     <div className="min-h-screen py-20 bg-gradient-to-r from-blue-100 to-blue-400">
-      <div className="container flex-1 flex flex-col items-center max-w-lg mx-auto px-4 py-28">
+      <div className="container flex-1 flexflex-col items-center max-w-lg mx-auto px-4 py-28">
         <div className="flex flex-col p-6 shadow-lg bg-white rounded-xl">
           <h2 className="text-2xl text-center capitalize mb-4 text-black font-semibold">Forgot Password</h2>
           <form onSubmit={handleSubmit}>
