@@ -1,164 +1,160 @@
-import React, {useReducer} from 'react'
-
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 function Register() {
-  const initialState ={
-    firstName :"",
-    lastName:"",
-    password:"",
-    confirmPassword:"",
-    email:"",
-    error:"",
-    loading:false,
-    success:false
-  }
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case 'SET_FIELD':
-        return {
-          ...state,
-          [action.field]: action.value,
-        };
-      case 'SUBMIT':
-        return {
-          ...state,
-          loading: true,
-          error: '',
-        };
-      case 'SUCCESS':
-        return {
-          ...state,
-          loading: false,
-          success: true,
-        };
-      case 'ERROR':
-        return {
-          ...state,
-          loading: false,
-          error: action.error,
-        };
-      default:
-        return state;
-    }
-  };
+  const [first_name, setFirst_name] = useState('');
+  const [last_name, setLast_name] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const navigate = useNavigate()
+
+  const autRegister = async (e) => {
+    e.preventDefault();
+
+    setErrors({});
+    setLoading(true);
+
   
-  const [state, dispatch] = useReducer(reducer, initialState)
-  const handleChange= (e)=>{
-    dispatch({
-      type: "SET_FIELD",
-      field: e.target.name,
-      value: e.target.value,
-    })
-  }
-  const handleSubmit = async(e)=>{
-    e.preventDefaut();
-    dispatch({type:"SUBMIT"})
-    const token = localStorage.getItem("access_token")
-    try{
-      const response = await fetch("https://shoppers-community-server.onrender.com/register",{
-        method: "POST",
-        headers:{
-          "Content-Type": "application/json",
-          'Authorization': `Bearer ${token}`
+    const newErrors = {};
+    if (!first_name) newErrors.first_name = 'First name is required.';
+    if (!last_name) newErrors.last_name = 'Last name is required.';
+    if (!email) {
+      newErrors.email = 'Email is required.';
+    } else if (!emailRegex.test(email)) {
+      newErrors.email = 'Invalid email format.';
+    }
+    if (!password) newErrors.password = 'Password is required.';
+    if (!confirmPassword) newErrors.confirmPassword = 'Confirm password is required.';
+    if (password !== confirmPassword) newErrors.confirmPassword = 'Passwords do not match.';
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await fetch('http://127.0.0.1:5555/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          firstName: state.firstName,
-          lastName:state.lastName,
-          email: state.email,
-          password: state.password,
-          confirmPassword: state.confirmPassword,
+          first_name,
+          last_name,
+          email,
+          password,
+          confirmPassword,
         }),
-      })
-      if (response.ok){
-        const data = await response.json();
-        dispatch({type: "SUCCESS"});
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setFirst_name('');
+        setLast_name('');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+        setErrors({});
+        navigate('/login')
+      } else {
+        setErrors({ general: result.message });
       }
-      else{
-        const errorData = await response.json();
-        dispatch({type: 'ERROR', error: errorData.message})
-      }
+    } catch (error) {
+      setErrors({ general: 'An error occurred. Please try again.' });
+    } finally {
+      setLoading(false);
     }
-    catch(error){
-      dispatch({type: "ERROR", error: "Network error"})
-    }
-  }
+  };
+
   return (
-    <div className="min-h-screen py-20 bg-gradient-to-r from-blue-100  to-blue-400" >
-    <div className="container mx-auto">
-      <div className="flex flex-col lg:flex-row w-10/12 lg:w-8/12 bg-white rounded-xl mx-auto shadow-lg overflow-hidden">
-        <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-12 bg-no-repeat bg-cover bg-center lg:bg-[url('https://lilacinfotech.com/lilac_assets/images/blog/What-Is-E-commerce-and-what-are-its-Applications.jpg')]">
-         
-         </div>
-        <div className="w-full lg:w-1/2 py-16 px-12">
-          <h2  className="text-2xl text-center capitalize mb-4 text-black font-semibold">Register With Us</h2>
-          <form action="#" onSubmit = {handleSubmit}>
-            <div className="grid grid-cols-2 gap-5">
-              <div>
-              <label for="name" className="mb-2 text-sm text-start font-semibold text-gray-400">First Name</label>
-                <input 
-                type="text"
-                placeholder="First Name"
-                className="flex items-center border border-blue-300 w-full px-5 py-3 mr-2 text-sm font-medium outline-none focus:bg-grey-400 mb-7 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-md"
-                name = "firstName"
-                value = {state.firstName}
-                onChange = {handleChange}
+    <div className="min-h-screen py-20 bg-gradient-to-r from-blue-100 to-blue-400">
+      <div className="container mx-auto">
+        <div className="flex flex-col lg:flex-row w-10/12 lg:w-8/12 bg-white rounded-xl mx-auto shadow-lg overflow-hidden">
+          <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-12 bg-no-repeat bg-cover bg-center lg:bg-[url('https://lilacinfotech.com/lilac_assets/images/blog/What-Is-E-commerce-and-what-are-its-Applications.jpg')]"></div>
+          <div className="w-full lg:w-1/2 py-16 px-12">
+            <h2 className="text-2xl text-center capitalize mb-4 text-black font-semibold">Register With Us</h2>
+            <form onSubmit={autRegister}>
+              <div className="grid grid-cols-2 gap-5">
+                <div className='mb-3'>
+                  <label htmlFor="name" className="mb-2 text-sm text-start font-semibold text-gray-400">First Name</label>
+                  <input
+                    type="text"
+                    placeholder="First Name"
+                    className="flex items-center border border-blue-300 w-full px-5 py-3 mr-2 text-sm font-medium outline-none focus:bg-grey-400 mb-2 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-md"
+                    value={first_name}
+                    onChange={(e) => setFirst_name(e.target.value)}
+                  />
+                  {errors.first_name && <div className="text-red-500 text-sm capitalize rounded-md">{errors.first_name}</div>}
+                </div>
+                <div>
+                  <label htmlFor="name" className="mb-2 text-sm text-start font-semibold text-gray-400">Last Name</label>
+                  <input
+                    type="text"
+                    placeholder="Last Name"
+                    className="flex items-center border border-blue-300 w-full px-5 py-3 mr-2 text-sm font-medium outline-none focus:bg-grey-400 mb-2 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-md"
+                    value={last_name}
+                    onChange={(e) => setLast_name(e.target.value)}
+                  />
+                  {errors.last_name && <div className="text-red-500 text-sm capitalize rounded-md">{errors.last_name}</div>}
+                </div>
+              </div>
+              <div className="mb-3">
+                <label htmlFor="email" className="mb-2 text-sm text-start font-semibold text-gray-400">Email</label>
+                <input
+                  type="email"
+                  placeholder="Enter Your Email"
+                  className="flex items-center border border-blue-300 w-full px-5 py-3 mr-2 text-sm font-medium outline-none focus:bg-grey-400 mb-2 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-md"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
+                {errors.email && <div className="text-red-500 text-sm capitalize rounded-md">{errors.email}</div>}
               </div>
-              <div>
-              <label for="name" className="mb-2 text-sm text-start font-semibold text-gray-400">Last Name</label>
-               <input
-               type="text"
-               placeholder="Last Name"
-               className="flex items-center border border-blue-300 w-full px-5 py-3 mr-2 text-sm font-medium outline-none focus:bg-grey-400 mb-7 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-md"
-               name = "lastName"
-               value= {state.lastName}
-               onChange={handleChange}/>
+              <div className="mb-3">
+                <label htmlFor="password" className="mb-2 text-sm text-start font-semibold text-gray-400">Password</label>
+                <input
+                  type="password"
+                  placeholder="Enter Your Password"
+                  className="flex items-center border border-blue-300 w-full px-5 py-3 mr-2 text-sm font-medium outline-none focus:bg-grey-400 mb-2 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-md"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                {errors.password && <div className="text-red-500 text-sm capitalize rounded-md">{errors.password}</div>}
               </div>
-             
-            </div>
-            <div className="">
-            <label for="email" className="mb-2 text-sm text-start font-semibold text-gray-400">Email</label>
-            <input
-            type="email"
-            placeholder="Enter Your Email"
-            className="flex items-center border border-blue-300 w-full px-5 py-3 mr-2 text-sm font-medium outline-none focus:bg-grey-400 mb-7 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-md"
-            name="email"
-            value = {state.email}
-            onChange= {handleChange}/>
-            </div>
-            <div className="">
-            <label for="password"className="mb-2 text-sm text-start font-semibold text-gray-400">Password</label>
-            <input
-            type="password"
-            placeholder="Confirm Your Password"
-            className="flex items-center border border-blue-300 w-full px-5 py-3 mr-2 text-sm font-medium outline-none focus:bg-grey-400 mb-7 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-md"
-            name = "password"
-            value = {state.password}
-            onChange={handleChange}/>
-            </div>
-            <div className="">
-            <label for="password" className="mb-2 text-sm text-start font-semibold text-gray-400">Confirm Password</label>
-            <input
-            type="password"
-            placeholder="Confirm Your Password"
-            className="flex items-center border border-blue-300 w-full px-5 py-3 mr-2 text-sm font-medium outline-none focus:bg-grey-400 mb-7 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-md"
-            name= "confirmPassword"
-            value ={state.confirmPassword}
-            onChange={handleChange}/>
-            </div>
-            {state.error &&<p>{state.error}</p>}
-            <div className="">
-              <button type= "submit" disabled={state.loading} className="w-full bg-[#4169E1] py-3 text-center text-white">{state.loading ? "Registering ...":  "Register Now"} </button>
-              
-            </div>
-            {state.success && <p>Registration successfull</p>}
-            <p className="text-sm text-center pt-5   capitalize leading-relaxed text-gray-900">already have an account <a href="/login" className="font-bold text-[#4169E1] text-grey-700">Login</a></p>
-          </form>
+              <div className="mb-3">
+                <label htmlFor="confirmPassword" className="mb-2 text-sm text-start font-semibold text-gray-400">Confirm Password</label>
+                <input
+                  type="password"
+                  placeholder="Confirm Your Password"
+                  className="flex items-center border border-blue-300 w-full px-5 py-3 mr-2 text-sm font-medium outline-none focus:bg-grey-400 mb-2 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-md"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                {errors.confirmPassword && <div className="text-red-500 text-sm capitalize rounded-md">{errors.confirmPassword}</div>}
+              </div>
+              <div className="pt-3">
+                <button className="w-full bg-[#4169E1] py-3 text-center text-white flex justify-center items-center">
+                  {loading ? <ClipLoader color="#fff" size={20} /> : 'Register Now'}
+                </button>
+              </div>
+
+              {errors.general && <div className="text-red-500 text-sm capitalize rounded-md mt-3">{errors.general}</div>}
+
+              <p className="text-sm text-center pt-5 capitalize leading-relaxed text-gray-900">
+                Already have an account? <a href="/login" className="font-bold text-[#4169E1] text-grey-700">Login</a>
+              </p>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  )
+  );
 }
 
-export default Register
+export default Register;
