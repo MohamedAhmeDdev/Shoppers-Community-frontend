@@ -12,17 +12,15 @@ test('handles form validation and displays error messages', async () => {
     </MemoryRouter>
   );
 
-  // Simulate empty form submission
+
   fireEvent.click(screen.getByText(/submit/i));
 
-  // Check for error message about empty fields
+
   expect(await screen.findByText(/please fill in all fields/i)).toBeInTheDocument();
 
-  // Simulate password mismatch
   fireEvent.change(screen.getByPlaceholderText('Password'), { target: { value: 'password123' } });
   fireEvent.change(screen.getByPlaceholderText('Confirm Password'), { target: { value: 'password456' } });
   fireEvent.click(screen.getByText(/submit/i));
 
-  // Check for error message about password mismatch
   expect(await screen.findByText(/passwords do not match/i)).toBeInTheDocument();
 });

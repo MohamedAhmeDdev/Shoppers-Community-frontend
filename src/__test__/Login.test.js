@@ -12,18 +12,16 @@ test('handles form validation and displays error messages', async () => {
     </MemoryRouter>
   );
 
-  // Simulate empty form submission
+
   fireEvent.click(screen.getByRole('button', { name: /login/i }));
 
-  // Check for error messages about empty fields
+
   expect(await screen.findByText(/email is required/i)).toBeInTheDocument();
   expect(await screen.findByText(/password is required/i)).toBeInTheDocument();
 
-  // Simulate invalid email format
   fireEvent.change(screen.getByPlaceholderText('Enter Your Email'), { target: { value: 'invalid-email' } });
   fireEvent.change(screen.getByPlaceholderText('Confirm Your Password'), { target: { value: 'password123' } });
   fireEvent.click(screen.getByRole('button', { name: /login/i }));
 
-  // Check for error message about invalid email format
   expect(await screen.findByText(/invalid email format/i)).toBeInTheDocument();
 });
