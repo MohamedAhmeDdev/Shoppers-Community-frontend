@@ -64,7 +64,7 @@ function Navbar() {
             <Link to="/history" className="nav-link block md:inline-block text-white text-md font-semibold hover:text-black px-3 py-3 md:border-none">Search History</Link>
             <Link to="/about" className="nav-link block md:inline-block text-white text-md font-semibold hover:text-black px-3 py-3 md:border-none">About us</Link>
             <Link to="/contact" className="nav-link block md:inline-block text-white text-md font-semibold hover:text-black px-3 py-3 md:border-none">Contact</Link>
-            <Link to="/login" className="nav-link block md:inline-block text-white text-md font-semibold hover:text-black px-3 py-3 md:border-none">Sign Up</Link>            
+            <Link  to="/login" className="nav-link block md:hidden text-white text-md font-semibold hover:text-black px-3 py-3 md:border-none">Sign Up</Link>
           </div>
         </div>
 

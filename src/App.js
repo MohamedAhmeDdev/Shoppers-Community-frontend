@@ -12,8 +12,10 @@ import ForgotPassword from "./Auth/ForgotPassword";
 import ResetPassword from "./Auth/ResetPassword";
 import Register from "./Auth/Register";
 import SearchHistory from "./pages/SearchHistory";
+import AuthenticateUser from "./Auth/AuthenticateUser";
+import QueryProduct from "./pages/QueryProduct";
 
-// Layout component that includes Navbar and Footer
+
 function MainLayout() {
   return (
     <div>
@@ -34,8 +36,10 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/Category" element={<Category />} />
-            <Route path="/filter/:id" element={<ProductFilter />} />
+            <Route path="/filter/:category_id" element={<ProductFilter />} />
+            <Route path="/QueryProduct" element={<QueryProduct />} />
             <Route path="/history" element={<SearchHistory />} />
+            <Route path="/user/:token" element={<AuthenticateUser />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />

@@ -1,0 +1,1 @@
+export const SERVER_URL = "https://shoppers-community-server.onrender.com";
