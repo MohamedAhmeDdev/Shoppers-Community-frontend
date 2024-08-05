@@ -1,135 +1,106 @@
-import React, { useReducer } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ClipLoader from 'react-spinners/ClipLoader';
+
 
 function Login() {
-  const initialState = {
-    email: '',
-    password: '',
-    error: '',
-    loading: false,
-    success: false,
-  };
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const navigate = useNavigate()
 
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case 'SET_FIELD':
-        return {
-          ...state,
-          [action.field]: action.value,
-        };
-      case 'SUBMIT':
-        return {
-          ...state,
-          loading: true,
-          error: '',
-        };
-      case 'SUCCESS':
-        return {
-          ...state,
-          loading: false,
-          success: true,
-        };
-      case 'ERROR':
-        return {
-          ...state,
-          loading: false,
-          error: action.error,
-        };
-      default:
-        return state;
-    }
-  };
 
-  const [state, dispatch] = useReducer(reducer, initialState);
-
-  const handleChange = (e) => {
-    dispatch({
-      type: 'SET_FIELD',
-      field: e.target.name,
-      value: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
+  const authLogin = async (e) => {
     e.preventDefault();
-    dispatch({ type: 'SUBMIT' });
 
-    if (!state.email || !state.password) {
-      dispatch({ type: 'ERROR', error: 'Email and password are required' });
+    setErrors({});
+    setLoading(true);
+
+  
+    const newErrors = {};
+   
+    if (!email) {
+      newErrors.email = 'Email is required.';
+    } else if (!emailRegex.test(email)) {
+      newErrors.email = 'Invalid email format.';
+    }
+    if (!password) newErrors.password = 'Password is required.';
+
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      setLoading(false);
       return;
     }
 
     try {
-      const response = await fetch('https://shoppers-community-server.onrender.com/login', {
+      const response = await fetch('http://127.0.0.1:5555/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email: state.email,
-          password: state.password,
+          email,
+          password,
         }),
       });
 
+      const result = await response.json();
+
       if (response.ok) {
-        const data = await response.json();
-        dispatch({ type: 'SUCCESS' });
-        // Handle successful login (e.g., store token, redirect, etc.)
+        setEmail('');
+        setPassword('');
+        setErrors({});
+        navigate('/')
       } else {
-        const errorData = await response.json();
-        dispatch({ type: 'ERROR', error: errorData.message });
+        setErrors({ general: result.message });
       }
     } catch (error) {
-      dispatch({ type: 'ERROR', error: 'Network error' });
+      setErrors({ general: 'An error occurred. Please try again.' });
+    } finally {
+      setLoading(false);
     }
   };
 
+
   return (
-    <div className="min-h-screen py-20 bg-gradient-to-r from-blue-100 to-blue-400">
-      <div className="container mx-auto">
-        <div className="flex flex-col lg:flex-row w-10/12 lg:w-8/12 bg-white rounded-xl mx-auto shadow-lg overflow-hidden">
-          <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-12 bg-no-repeat bg-cover bg-center lg:bg-[url('https://lilacinfotech.com/lilac_assets/images/blog/What-Is-E-commerce-and-what-are-its-Applications.jpg')]">
-          </div>
-          <div className="w-full lg:w-1/2 py-16 px-12">
-            <h2 className="text-2xl text-center capitalize mb-4 text-black font-semibold">Login</h2>
-            <form action="#" onSubmit={handleSubmit}>
-              <div className="">
-                <label htmlFor="email" className="mb-2 text-sm text-start font-semibold text-gray-400">Email</label>
-                <input
-                  type="email"
-                  placeholder="Enter Your Email"
-                  className="flex items-center border border-blue-300 w-full px-5 py-3 mr-2 text-sm font-medium outline-none focus:bg-grey-400 mb-7 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-md"
-                  name="email"
-                  value={state.email}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="">
-                <label htmlFor="password" className="mb-2 text-sm text-start font-semibold text-gray-400">Password</label>
-                <input
-                  type="password"
-                  placeholder="Enter Your Password"
-                  className="flex items-center border border-blue-300 w-full px-5 py-3 mr-2 text-sm font-medium outline-none focus:bg-grey-400 mb-7 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-md"
-                  name="password"
-                  value={state.password}
-                  onChange={handleChange}
-                />
-              </div>
-              {state.error && <p className="text-red-500">{state.error}</p>}
-              <div className="">
-                <button type="submit" disabled={state.loading} className="w-full bg-[#4169E1] py-3 text-center text-white">
-                  {state.loading ? 'Logging in...' : 'Login'}
-                </button>
-              </div>
-              {state.success && <p className="text-green-500">Login successful!</p>}
-              <p className="text-sm text-center pt-5 capitalize leading-relaxed text-gray-900">
-                Don't have an account? <a href="/register" className="font-bold text-[#4169E1] text-grey-700">Register</a>
-              </p>
-            </form>
-          </div>
+    <div className="min-h-screen py-20 bg-gradient-to-r from-blue-100  to-blue-400" >
+       <div className="container flex-1 flexflex-col items-center max-w-lg mx-auto px-4 py-28">
+        <div className="flex flex-col p-6 shadow-lg bg-white rounded-xl">
+          <h2  className="text-2xl text-center capitalize mb-4 text-black font-semibold">login in</h2>
+          <form onSubmit={authLogin}>
+            
+           {errors.general && <div className="text-red-500 text-sm capitalize rounded-md mt-3">{errors.general}</div>}
+
+            <div className="mb-6">
+            <label htmlFor="email" className="mb-2 text-sm text-start font-semibold text-gray-400">Email</label>
+            <input  type="email"  value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter Your Email" className="flex items-center border border-blue-300 w-full px-5 py-3 mr-2 text-sm font-medium outline-none focus:bg-grey-400 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-md"/>
+            {errors.email && <div className="text-red-500 text-sm capitalize rounded-md">{errors.email}</div>}
+            </div>
+            <div className="mb-6">
+            <label htmlFor="password" className="mb-2 text-sm text-start font-semibold text-gray-400">Password</label>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Confirm Your Password" className="flex items-center border border-blue-300 w-full px-5 py-3 mr-2 text-sm font-medium outline-none focus:bg-grey-400 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-md"/>
+             {errors.password && <div className="text-red-500 text-sm capitalize rounded-md">{errors.password}</div>}
+            </div>
+            <div className="flex flex-row justify-end mb-2">
+            <a href="/forgotPassword" className="mr-4 text-sm font-medium text-left hover:text-[#4169E1] text-purple-blue-500">Forgot password?</a>
+            </div>
+            <div className="">
+            <button className="w-full bg-[#4169E1] py-3 text-center text-white">
+            {loading ? <ClipLoader color="#fff" size={20} /> : 'Login'}
+            </button>
+
+              <p className="text-sm text-center pt-5   capitalize leading-relaxed text-gray-900">Not registered yet?<a href="/register" className="font-bold text-[#4169E1] text-grey-700">Create an Account</a></p>
+            </div>
+          </form>
         </div>
+
       </div>
-    </div>
-  );
+  
+   </div>
+  )
 }
 
-export default Login;
+export default Login
