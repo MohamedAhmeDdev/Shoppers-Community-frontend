@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import QueryProductFilter from '../Component/QueryProductFilter';
 import QueryProductList from '../Component/QueryProductList';
 import {SERVER_URL} from '../constant'

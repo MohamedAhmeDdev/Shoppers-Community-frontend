@@ -26,9 +26,9 @@ function QueryProductList({ results }) {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {results.map((item, index) => (
                             <div key={index} className="relative m-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border shadow-md bg-white">
-                                <a className="relative flex h-60 overflow-hidden" href="#">
-                                    <img className="object-cover w-full h-full" src={item.product_image} alt={`Image of ${item.name}`} />
-                                </a>
+                                <div className="relative flex h-60 overflow-hidden">
+                                    <img className="object-cover w-full h-full" src={item.product_image} alt={`${item.name}`} />
+                                </div>
                                 <div className="mt-4 px-5 pb-5">
                                     <h5 className="text-md tracking-tight text-slate-900">{item.name}</h5>
                                     <div className="mt-2 mb-5 flex items-center justify-between">
