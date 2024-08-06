@@ -1,5 +1,6 @@
 // Register.test.js
 import React from 'react';
+import '@testing-library/jest-dom'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import Register from '../Auth/Register';
