@@ -6,6 +6,7 @@ function Category() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetch(`${SERVER_URL}/categories`)
@@ -21,8 +22,16 @@ function Category() {
       });
   }, []);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+
+
+  useEffect(() => {
+   
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  
+    return () => clearTimeout(timeout);
+  }, []);
 
   return (
     <div className="flex justify-center items-center">
@@ -34,17 +43,35 @@ function Category() {
             </h1>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
-            {categories.map(category => (
-               <Link to={`/filter/${category.id}`}>
-              <div key={category.id} className="relative group flex justify-center items-center h-72 w-72">
-                <img className="object-center object-cover h-full w-full" src={category.category_image} alt={category.name} />
-                <button className="dark:bg-[#f7444e] dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 bottom-4 z-10 absolute text-base font-medium leading-none text-gray-800 py-3 w-36 bg-white">
-                  {category.name}
-                </button>
-              </div>
-              </Link>
-            ))}
-          </div>
+            {isLoading ? (
+
+            <>
+              {categories.map(category => (
+                 <Link to={`/filter/${category.id}`}>
+                <div key={category.id} className="relative group flex justify-center items-center h-72 w-72">
+                  <img className="object-center object-cover h-full w-full bg-gray-50 animate-pulse"  />
+                  <button className="bg-gray-200 animate-pulse dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 bottom-4 z-10 absolute text-base font-medium leading-none text-gray-800 py-3 w-36">
+                  {''}
+                  </button>
+                </div>
+                </Link>
+              ))}
+              </>
+       ) : (
+             <>
+              {categories.map(category => (
+                 <Link to={`/filter/${category.id}`}>
+                <div key={category.id} className="relative group flex justify-center items-center h-72 w-72">
+                  <img className="object-center object-cover h-full w-full" src={category.category_image} alt={category.name} />
+                  <button className="dark:bg-[#f7444e] dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 bottom-4 z-10 absolute text-base font-medium leading-none text-gray-800 py-3 w-36 bg-white">
+                    {category.name}
+                  </button>
+                </div>
+                </Link>
+              ))}
+              </>
+                 )}
+            </div>
         </div>
       </div>
     </div>
