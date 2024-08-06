@@ -1,29 +1,36 @@
+// Register.test.js
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import Login from '../Auth/Login';
+import Register from '../Auth/Register';
 
 test('handles form validation and displays error messages', async () => {
   render(
-    <MemoryRouter initialEntries={['/login']}>
+    <MemoryRouter initialEntries={['/register']}>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </MemoryRouter>
   );
 
-  // Simulate empty form submission
-  fireEvent.click(screen.getByRole('button', { name: /login/i }));
+  // Click the submit button without filling the form
+  fireEvent.click(screen.getByText(/register Now/i));
 
-  // Check for error messages about empty fields
+  // Check for validation messages
+  expect(await screen.findByText(/first name is required/i)).toBeInTheDocument();
+  expect(await screen.findByText(/last name is required/i)).toBeInTheDocument();
   expect(await screen.findByText(/email is required/i)).toBeInTheDocument();
-  expect(await screen.findByText(/password is required/i)).toBeInTheDocument();
+  expect(await screen.findByText(/Confirm password is required/i)).toBeInTheDocument();
+  expect(await screen.findByText(/confirm password is required/i)).toBeInTheDocument();
 
-  // Simulate invalid email format
-  fireEvent.change(screen.getByPlaceholderText('Enter Your Email'), { target: { value: 'invalid-email' } });
-  fireEvent.change(screen.getByPlaceholderText('Confirm Your Password'), { target: { value: 'password123' } });
-  fireEvent.click(screen.getByRole('button', { name: /login/i }));
+  // Fill in the form fields and submit again
+  fireEvent.change(screen.getByPlaceholderText('First Name'), { target: { value: 'John' } });
+  fireEvent.change(screen.getByPlaceholderText('Last Name'), { target: { value: 'Doe' } });
+  fireEvent.change(screen.getByPlaceholderText('Email'), { target: { value: 'john.doe@example.com' } });
+  fireEvent.change(screen.getByPlaceholderText('password'), { target: { value: 'password123' } });
+  fireEvent.change(screen.getByPlaceholderText('Confirm Password'), { target: { value: 'password456' } });
+  fireEvent.click(screen.getByText(/Register Now/i));
 
-  // Check for error message about invalid email format
-  expect(await screen.findByText(/invalid email format/i)).toBeInTheDocument();
+  // Check for any additional validation or error messages
+  expect(await screen.findByText(/passwords do not match/i)).toBeInTheDocument(); // Adjust or remove if necessary based on your form validation
 });
