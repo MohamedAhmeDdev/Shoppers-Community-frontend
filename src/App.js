@@ -14,6 +14,7 @@ import Register from "./Auth/Register";
 import SearchHistory from "./pages/SearchHistory";
 import AuthenticateUser from "./Auth/AuthenticateUser";
 import QueryProduct from "./pages/QueryProduct";
+import Message from "./Auth/Message";
 
 
 function MainLayout() {
@@ -40,6 +41,7 @@ function App() {
             <Route path="/QueryProduct" element={<QueryProduct />} />
             <Route path="/history" element={<SearchHistory />} />
             <Route path="/user/:token" element={<AuthenticateUser />} />
+            <Route path="/message" element={<Message />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />

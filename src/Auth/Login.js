@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ClipLoader from 'react-spinners/ClipLoader';
 import {SERVER_URL} from '../constant'
+import { UseAuthContext } from "../hook/UseAuthContext";
+
 
 
 function Login() {
@@ -11,31 +13,29 @@ function Login() {
   const [errors, setErrors] = useState({});
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const navigate = useNavigate()
-
+  const { dispatch } = UseAuthContext();
 
   const authLogin = async (e) => {
     e.preventDefault();
-
+  
     setErrors({});
     setLoading(true);
-
   
     const newErrors = {};
-   
+  
     if (!email) {
       newErrors.email = 'Email is required.';
     } else if (!emailRegex.test(email)) {
       newErrors.email = 'Invalid email format.';
     }
     if (!password) newErrors.password = 'Password is required.';
-
-
+  
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       setLoading(false);
       return;
     }
-
+  
     try {
       const response = await fetch(`${SERVER_URL}/login`, {
         method: 'POST',
@@ -47,14 +47,18 @@ function Login() {
           password,
         }),
       });
-
+  
       const result = await response.json();
-
+  
       if (response.ok) {
+        const user = result; 
+        console.log(user);
         setEmail('');
         setPassword('');
         setErrors({});
-        navigate('/')
+        localStorage.setItem("user", JSON.stringify(user));
+        dispatch({ type: "LOGIN", payload: user });
+        navigate('/');
       } else {
         setErrors({ general: result.message });
       }
@@ -64,7 +68,7 @@ function Login() {
       setLoading(false);
     }
   };
-
+  
 
   return (
     <div className="min-h-screen py-20 bg-gradient-to-r from-blue-100  to-blue-400" >
