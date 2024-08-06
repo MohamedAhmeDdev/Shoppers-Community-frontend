@@ -63,7 +63,7 @@ function Register() {
         setPassword('');
         setConfirmPassword('');
         setErrors({});
-        navigate('/login')
+        navigate('/message')
       } else {
         setErrors({ general: result.message });
       }

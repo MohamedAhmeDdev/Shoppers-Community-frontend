@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import {SERVER_URL} from '../constant'
+import { Link } from 'react-router-dom';
 
 function Category() {
   const [categories, setCategories] = useState([]);
@@ -6,7 +8,7 @@ function Category() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("https://shoppers-community-server.onrender.com/categories")
+    fetch(`${SERVER_URL}/categories`)
       .then(response => response.json())
       .then(data => {
         setCategories(data);
@@ -33,12 +35,14 @@ function Category() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
             {categories.map(category => (
+               <Link to={`/filter/${category.id}`}>
               <div key={category.id} className="relative group flex justify-center items-center h-72 w-72">
-                <img className="object-center object-cover h-full w-full" src={category.imageUrl} alt={category.name} />
+                <img className="object-center object-cover h-full w-full" src={category.category_image} alt={category.name} />
                 <button className="dark:bg-[#f7444e] dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 bottom-4 z-10 absolute text-base font-medium leading-none text-gray-800 py-3 w-36 bg-white">
                   {category.name}
                 </button>
               </div>
+              </Link>
             ))}
           </div>
         </div>

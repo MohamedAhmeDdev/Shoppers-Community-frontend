@@ -1,16 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import header from "../assets/lovepik-25d-online-e-commerce-online-shopping-vector-png-image_401266582_wh1200-removebg-preview-removebg-preview.png";
 import { Link } from 'react-router-dom';
+import {SERVER_URL} from '../constant'
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
   const [categories, setCategories] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://shoppers-community-server.onrender.com/categories")
+    fetch(`${SERVER_URL}/categories`)
       .then(response => response.json())
       .then(data => setCategories(data))
       .catch(error => console.error('Error fetching the data:', error));
   }, []);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    navigate(`/QueryProduct?search=${encodeURIComponent(searchTerm)}`);
+};
+
 
   return (
     <div>
@@ -22,11 +32,10 @@ function Home() {
                 <h1 className="font-bold text-4xl text-blue-500 md:text-5xl lg:w-10/12">
                   Find The Best Price
                 </h1>
-                <form action="" className="w-full mt-5">
+                <form onSubmit={handleSearch} className="w-full mt-5">
                   <label className="mx-auto relative bg-white min-w-sm max-w-2xl flex flex-col md:flex-row items-center justify-center border py-2 px-2 rounded-full gap-2 shadow-2xl focus-within:border-gray-300"
                          htmlFor="search-bar">
-                    <input id="search-bar" placeholder="your keyword here"
-                           className="px-6 py-2 w-full rounded-md flex-1 outline-none bg-white"/>
+                    <input id="search-bar"  value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="your keyword here" className="px-6 py-2 w-full rounded-md flex-1 outline-none bg-white"/>
                     <button
                       className="w-full md:w-auto px-6 py-3 bg-[#f7444e] border-[#f7444e] text-white fill-white active:scale-95 duration-100 border will-change-transform overflow-hidden relative rounded-full transition-all disabled:opacity-70">
                       <div className="relative">
@@ -56,17 +65,16 @@ function Home() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
               {categories.map(category => (
+                 <Link to={`/filter/${category.id}`}>
                 <div key={category.id} className="relative group flex justify-center items-center h-72 w-72">
-                  <img className="object-center object-cover h-full w-full" src={category.imageUrl} alt={category.name} />
+                  <img className="object-center object-cover h-full w-full" src={category.category_image} alt={category.name} />
                   <button className="dark:bg-[#f7444e] dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 bottom-4 z-10 absolute text-base font-medium leading-none text-gray-800 py-3 w-36 bg-white">
                     {category.name}
                   </button>
                 </div>
+                </Link>
               ))}
             </div>
-            <Link to='/Category'>
-              <p className='font-bold text-black text-lg'>See More Categories</p>
-            </Link>
           </div>
         </div>
       </div>
