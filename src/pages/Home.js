@@ -19,11 +19,14 @@ function Home() {
 
   const handleSearch = (e) => {
     e.preventDefault();
+    if (searchTerm.trim() === '') {
+      alert('Please enter a search term.');
+      return;
+    }
     navigate(`/QueryProduct?search=${encodeURIComponent(searchTerm)}`);
-};
+  };
 
-useEffect(() => {
-   
+   useEffect(() => {
   const timeout = setTimeout(() => {
     setIsLoading(false);
   }, 2000);
@@ -38,14 +41,14 @@ useEffect(() => {
         <div className="relative bg-gradient-to-t from-blue-100 to-blue-400">
           <div className="container m-auto px-6 pt-32 md:px-12 lg:pt-[4.8rem] lg:px-7">
             <div className="flex items-center flex-wrap px-2 md:px-0">
-              <div className="relative lg:w-6/12 lg:py-24 xl:py-32">
+              <div className="relative  w-full lg:w-6/12 lg:py-24 xl:py-32">
                 <h1 className="font-bold text-4xl text-blue-500 md:text-5xl lg:w-10/12">
                   Find The Best Price
                 </h1>
                 <form onSubmit={handleSearch} className="w-full mt-5">
-                  <label className="mx-auto relative bg-white min-w-sm max-w-2xl flex flex-col md:flex-row items-center justify-center border py-2 px-2 rounded-full gap-2 shadow-2xl focus-within:border-gray-300"
+                  <label className="mx-auto relative bg-white min-w-sm max-w-2xl flex flex-col md:flex-row items-center justify-center border py-2 px-2 rounded-3xl gap-2 shadow-2xl focus-within:border-gray-300"
                          htmlFor="search-bar">
-                    <input id="search-bar"  value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="your keyword here" className="px-6 py-2 w-full rounded-md flex-1 outline-none bg-white"/>
+                    <input id="search-bar"  value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="your keyword here" className="px-6 py-2 w-full rounded-full md:rounded-md flex-1 outline-none bg-white"/>
                     <button
                       className="w-full md:w-auto px-6 py-3 bg-[#f7444e] border-[#f7444e] text-white fill-white active:scale-95 duration-100 border will-change-transform overflow-hidden relative rounded-full transition-all disabled:opacity-70">
                       <div className="relative">
@@ -73,7 +76,7 @@ useEffect(() => {
             <div className="flex flex-col justify-center items-center ">
               <h1 className="text-3xl xl:text-4xl font-semibold leading-7 xl:leading-9 text-gray-800">Shop By Category</h1>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {isLoading ? (
 
             <>
