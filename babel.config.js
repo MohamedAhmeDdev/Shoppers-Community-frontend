@@ -1,11 +1,10 @@
 module.exports = {
     presets: [
       '@babel/preset-env',
-      '@babel/preset-react'
+      '@babel/preset-react',
     ],
     plugins: [
-      '@babel/plugin-proposal-logical-assignment-operators',
-      // Add other Babel plugins here as needed
-    ]
+      '@babel/plugin-transform-runtime',
+    ],
   };
   
