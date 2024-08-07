@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 function CreateCategory() {
   const [formData, setFormData] = useState({
-    id: '',
     name: '',
     image: '',
   });
@@ -19,30 +18,16 @@ function CreateCategory() {
     e.preventDefault();
     console.log('Category Added:', formData);
     setFormData({
-      id: '',
       name: '',
       image: '',
     });
   };
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
       <h1 className="text-2xl font-bold mb-6">Add New Category</h1>
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label htmlFor="id" className="block text-sm font-medium text-gray-700">
-            ID:
-          </label>
-          <input
-            type="text"
-            id="id"
-            name="id"
-            value={formData.id}
-            onChange={handleChange}
-            required
-            className="mt-1 block w-full max-w-xs bg-gray-200 border border-gray-300 rounded-md shadow-sm sm:text-sm"
-          />
-        </div>
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-gray-700">
             Name:
@@ -54,7 +39,7 @@ function CreateCategory() {
             value={formData.name}
             onChange={handleChange}
             required
-            className="mt-1 block w-full max-w-xs bg-gray-200 border border-gray-300 rounded-md shadow-sm sm:text-sm"
+            className="mt-1  px-3 py-2 block w-full max-w-xs bg-gray-200 border border-gray-300 rounded-md shadow-sm sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
         <div>
@@ -62,13 +47,13 @@ function CreateCategory() {
             Image URL:
           </label>
           <input
-            type="text"
+            type="file"
             id="image"
             name="image"
             value={formData.image}
             onChange={handleChange}
             required
-           className="mt-1 block w-full max-w-xs bg-gray-200 border border-gray-300 rounded-md shadow-sm sm:text-sm"
+           className="mt-1  px-3 py-2 block w-full max-w-xs bg-gray-200 border border-gray-300 rounded-md shadow-sm sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
         <button
@@ -78,6 +63,7 @@ function CreateCategory() {
           Add Category
         </button>
       </form>
+      </div>
     </div>
   );
 }
