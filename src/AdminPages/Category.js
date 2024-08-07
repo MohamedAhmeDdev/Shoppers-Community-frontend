@@ -20,7 +20,7 @@ function Category() {
     <div className="container mx-auto p-6 relative">
       <button
         onClick={handleAddCategory}
-        className="absolute top-6 right-6 px-4 py-2 bg-sky-500 text-white rounded-md shadow-sm hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+        className="absolute top-6 right-6 px-4 py-2 bg-blue-500 text-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
       >
         Add Category
       </button>
