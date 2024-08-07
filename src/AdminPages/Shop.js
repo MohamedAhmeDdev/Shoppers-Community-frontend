@@ -18,8 +18,8 @@ function Shop() {
         <table className="min-w-full bg-white border border-gray-300">
           <thead>
             <tr className="bg-gray-100 border-b">
-              <th className="py-2 px-4 text-left text-gray-600">Shop Name</th>
               <th className="py-2 px-4 text-left text-gray-600">Shop Id</th>
+              <th className="py-2 px-4 text-left text-gray-600">Shop Name</th>
             </tr>
           </thead>
           <tbody>
