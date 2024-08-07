@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { apiCall } from "../utils/apiCall";
+import DateFormat  from "../utils/dateFormate";
 
 function SearchHistory() {
   const [history, setHistory] = useState([]);
@@ -46,7 +47,7 @@ function SearchHistory() {
                 <p className="text-md leading-8 text-black"><span className='font-bold lg:hidden'>Price: </span><span>{item.productPrice}</span></p>
               </div>
               <div className="col-span-8 sm:col-span-4 lg:col-span-2 flex items-center justify-center ">
-                <p className="text-md leading-8 text-black"><span className='font-bold lg:hidden'>Date: </span>{item.searchDate}</p>
+                <p className="text-md leading-8 text-black"><span className='font-bold lg:hidden'>Date: </span>{DateFormat(item.searchDate)}</p>
               </div>
             </div>
           ))}

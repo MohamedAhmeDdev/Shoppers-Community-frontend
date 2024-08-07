@@ -1,4 +1,5 @@
 import "./App.css";
+import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import Navbar from "./Component/Navbar";
 import Footer from "./Component/Footer";
@@ -15,7 +16,8 @@ import SearchHistory from "./pages/SearchHistory";
 import AuthenticateUser from "./Auth/AuthenticateUser";
 import QueryProduct from "./pages/QueryProduct";
 import Message from "./Auth/Message";
-
+import { checkToken } from './utils/TokenExp';
+import { UseAuthContext } from './hook/UseAuthContext';
 
 function MainLayout() {
   return (
@@ -28,6 +30,15 @@ function MainLayout() {
 }
 
 function App() {
+  const { dispatch } = UseAuthContext();
+
+  useEffect(() => {
+      checkToken(dispatch);
+
+      const intervalId = setInterval(() => checkToken(dispatch), 60000);
+      return () => clearInterval(intervalId);
+  }, [dispatch]);
+
   return (
     <div>
       <BrowserRouter>
