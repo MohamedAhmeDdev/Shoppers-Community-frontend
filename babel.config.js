@@ -3,11 +3,6 @@ module.exports = {
       '@babel/preset-env',
       '@babel/preset-react'
     ],
-    plugins: [
-      '@babel/plugin-proposal-logical-assignment-operators',
-      '@babel/plugin-proposal-class-properties',
-      '@babel/plugin-proposal-private-methods',
-      '@babel/plugin-proposal-private-property-in-object'
-    ]
+  
   };
   

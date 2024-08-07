@@ -24,7 +24,8 @@ function QueryProductList({ results }) {
             ) : (
                 <div className="col-span-12 md:col-span-9">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {results.map((item, index) => (
+                        {results.length > 0 ? (
+                        results.map((item, index) => (
                             <div key={index} className="relative m-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border shadow-md bg-white">
                                 <div className="relative flex h-60 overflow-hidden">
                                     <img className="object-cover w-full h-full" src={item.product_image} alt={`${item.name}`} />
@@ -46,7 +47,10 @@ function QueryProductList({ results }) {
                                     </div>
                                 </div>
                             </div>
-                        ))}
+                        ))
+                        ) : (
+                            <p className="text-gray-600 text-center">Product Not found</p>
+                        )}
                     </div>
                 </div>
             )}
