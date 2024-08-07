@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import logo from '../assets/d9691fbd-2061-4573-b2e9-85d30d67215f.jpeg';
+import { UseAuthContext } from "../hook/UseAuthContext";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { dispatch,user } = UseAuthContext();
+  const navigate = useNavigate()
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -26,6 +29,13 @@ function Navbar() {
       }
     };
   }, []);
+
+  const handleLogout = async () => {
+    localStorage.removeItem("user");
+    dispatch({ type: "LOGOUT" });
+    navigate("/");
+  };
+  
 
   return (
     <div>
@@ -61,14 +71,27 @@ function Navbar() {
           <div className="flex flex-col md:flex-row text-left md:text-center mt-5 md:mt-0 md:border-none lg:justify-center" style={{ visibility: 'visible', animationDuration: '1s', animationName: 'fadeInUp' }}>
             <Link to="/" className="nav-link block md:inline-block text-white text-md font-semibold hover:text-black px-3 py-3 md:border-none">Home</Link>
             <Link to="/category" className="nav-link block md:inline-block text-white text-md font-semibold hover:text-black px-3 py-3 md:border-none">Category</Link>
-            <Link to="/history" className="nav-link block md:inline-block text-white text-md font-semibold hover:text-black px-3 py-3 md:border-none">Search History</Link>
+            {user ? ( <Link to="/history" className="nav-link block md:inline-block text-white text-md font-semibold hover:text-black px-3 py-3 md:border-none">Search History</Link>
+              ) : 
+              null
+             }
             <Link to="/about" className="nav-link block md:inline-block text-white text-md font-semibold hover:text-black px-3 py-3 md:border-none">About us</Link>
             <Link to="/contact" className="nav-link block md:inline-block text-white text-md font-semibold hover:text-black px-3 py-3 md:border-none">Contact</Link>
-            <Link  to="/login" className="nav-link block md:hidden text-white text-md font-semibold hover:text-black px-3 py-3 md:border-none">Sign Up</Link>
+            {user ? (
+               <button onClick={handleLogout} className="nav-link block md:hidden text-white text-md font-semibold hover:text-black px-3 py-3 md:border-none">Logout</button>     
+            ) : (
+              <Link  to="/login" className="nav-link block md:hidden text-white text-md font-semibold hover:text-black px-3 py-3 md:border-none">Sign In</Link>
+            )}
           </div>
         </div>
 
-        <Link to="/login" className="py-2 px-2 rounded-md bg-white text-black hover:text-blue-600 transition-all duration-300 hidden sm:block"> Sign Up</Link>
+        {user ? (
+         <button onClick={handleLogout} className="nav-link hidden sm:block text-white text-md font-semibold hover:text-black px-3 py-3 md:border-none">Logout</button>     
+        ):(
+          <Link to="/login" className="py-2 px-2 rounded-md bg-white text-black hover:text-blue-600 transition-all duration-300 hidden sm:block"> Sign In</Link>
+          )}
+
+
 
         
 

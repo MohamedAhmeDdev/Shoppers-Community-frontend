@@ -63,7 +63,7 @@ function Register() {
         setPassword('');
         setConfirmPassword('');
         setErrors({});
-        navigate('/login')
+        navigate('/message')
       } else {
         setErrors({ general: result.message });
       }
@@ -110,7 +110,7 @@ function Register() {
                 <label htmlFor="email" className="mb-2 text-sm text-start font-semibold text-gray-400">Email</label>
                 <input
                   type="email"
-                  placeholder="Enter Your Email"
+                  placeholder="Email"
                   className="flex items-center border border-blue-300 w-full px-5 py-3 mr-2 text-sm font-medium outline-none focus:bg-grey-400 mb-2 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-md"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -121,7 +121,7 @@ function Register() {
                 <label htmlFor="password" className="mb-2 text-sm text-start font-semibold text-gray-400">Password</label>
                 <input
                   type="password"
-                  placeholder="Enter Your Password"
+                  placeholder="password"
                   className="flex items-center border border-blue-300 w-full px-5 py-3 mr-2 text-sm font-medium outline-none focus:bg-grey-400 mb-2 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-md"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -132,7 +132,7 @@ function Register() {
                 <label htmlFor="confirmPassword" className="mb-2 text-sm text-start font-semibold text-gray-400">Confirm Password</label>
                 <input
                   type="password"
-                  placeholder="Confirm Your Password"
+                  placeholder="Confirm Password"
                   className="flex items-center border border-blue-300 w-full px-5 py-3 mr-2 text-sm font-medium outline-none focus:bg-grey-400 mb-2 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-md"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}

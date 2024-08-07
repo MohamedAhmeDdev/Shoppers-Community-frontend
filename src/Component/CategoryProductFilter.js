@@ -26,9 +26,9 @@ function CategoryProductFilter({filterProductList, error}) {
                     {filterProductList.length > 0 ? (
                         filterProductList.map((product, index) => (
                             <div key={index} className="relative m-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border shadow-md bg-white">
-                                <a className="relative flex h-60 overflow-hidden" href="#">
-                                    <img className="object-cover w-full h-full" src={product.product_image} alt={`Image of ${product.name}`} />
-                                </a>
+                                <div className="relative flex h-60 overflow-hidden">
+                                    <img className="object-cover w-full h-full" src={product.product_image} alt={`${product.name}`} />
+                                </div>
                                 <div className="mt-4 px-5 pb-5">
                                     <h5 className="text-md tracking-tight text-slate-900"><span className='font-bold'>Shop name:</span> {product.shop.name}</h5>
                                     <h5 className="text-md tracking-tight text-slate-900">{product.name}</h5>

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import QueryProductFilter from '../Component/QueryProductFilter';
 import QueryProductList from '../Component/QueryProductList';
 import {SERVER_URL} from '../constant'
+import { apiCall } from "../utils/apiCall";
 
 function QueryProduct() {
     const [error, setError] = useState('');
@@ -19,25 +20,38 @@ function QueryProduct() {
     const [showFiltered, setShowFiltered] = useState(false);
 
     const query = new URLSearchParams(location.search).get('search');
-
     useEffect(() => {
         if (query) {
-            const getSearch = async () => {
-                try {
-                    const response = await fetch(`${SERVER_URL}/search?query=${encodeURIComponent(query)}`);
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch search results');
-                    }
-                    const data = await response.json();
-                    setResults(data);
-                } catch (error) {
-                    console.error('Search error:', error);
-                }
-            };
-
-            getSearch();
+          const getSearch = async () => {
+            try {
+              const response = await apiCall(`/search?query=${encodeURIComponent(query)}`);
+              if (response.status !== 200) {
+                throw new Error('Failed to fetch search results');
+              }
+              const data = response.data;
+              setResults(data);
+    
+              await postSearchHistory(query);
+            } catch (error) {
+              console.error('Search error:', error);
+            }
+          };
+    
+          const postSearchHistory = async (query) => {
+            try {
+              const response = await apiCall('/post-search-history', 'POST', { query });
+              if (response.status !== 200) {
+                throw new Error('Failed to post search history');
+              }
+              console.log('Search history posted successfully');
+            } catch (error) {
+              console.error('Post search history error:', error);
+            }
+          };
+    
+          getSearch();
         }
-    }, [query]);
+      }, [query]);
 
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
@@ -78,7 +92,6 @@ function QueryProduct() {
         });
         setShowFiltered(false);
     };
-
     return (
         <div>
             <section className="py-24 relative">
