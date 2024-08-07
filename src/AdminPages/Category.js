@@ -1,17 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// Updated static data for categories with images
 const categories = [
   { id: 1, name: 'Electronics', image: 'https://via.placeholder.com/150?text=Electronics' },
   { id: 2, name: 'Clothing', image: 'https://via.placeholder.com/150?text=Clothing' },
-  { id: 3, name: 'Sports & Outdoors', image: 'https://via.placeholder.com/150?text=Sports+%26+Outdoors' }, // Updated entry
+  { id: 3, name: 'Sports & Outdoors', image: 'https://via.placeholder.com/150?text=Sports+%26+Outdoors' }, 
 ];
 
 function Category() {
   const navigate = useNavigate();
 
-  // Function to handle navigation to the CreateCategory page
   const handleAddCategory = () => {
     navigate('/create-category');
   };
