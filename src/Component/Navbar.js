@@ -1,14 +1,8 @@
-<<<<<<< HEAD
-import React from 'react'
-import logo from '../assets/d9691fbd-2061-4573-b2e9-85d30d67215f.jpeg'
-
-=======
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import logo from '../assets/d9691fbd-2061-4573-b2e9-85d30d67215f.jpeg';
 import { UseAuthContext } from "../hook/UseAuthContext";
->>>>>>> 70a07410723939bde5c40575c5558271e27ef485
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -44,21 +38,6 @@ function Navbar() {
   
 
   return (
-<<<<<<< HEAD
-    <div className="w-full bg-blue-500">
-      <div className="container mx-auto flex items-center justify-between">
-          <img src={logo} alt="ShopHorizon Logo" className="h-12" />
-          <nav className="space-x-8">
-            <a href="#" className="hover:text-gray-200">Home</a>
-            <a href="#" className="hover:text-gray-200">Category</a>
-            <a href="#" className="hover:text-gray-200">About Us</a>
-            <a href="#" className="hover:text-gray-200">Contact</a>
-          </nav>
-          <button className="bg-white text-blue-500 px-4 py-2 rounded-full">Sign Up</button>
-        </div>
-    </div>
-  )
-=======
     <div>
       <nav className="flex flex-col md:flex-row items-center justify-between bg-blue-400 p-2 space-x-0 lg:space-x-10">
         <div className="flex items-center justify-between w-full md:w-auto">
@@ -119,7 +98,6 @@ function Navbar() {
       </nav>
     </div>
   );
->>>>>>> 70a07410723939bde5c40575c5558271e27ef485
 }
 
 export default Navbar;

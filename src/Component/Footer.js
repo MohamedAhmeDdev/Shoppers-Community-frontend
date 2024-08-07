@@ -1,12 +1,7 @@
-<<<<<<< HEAD
-import React from 'react'
-import logo from '../assets/d9691fbd-2061-4573-b2e9-85d30d67215f.jpeg'
-=======
 import React, { useEffect, useState } from 'react'
 import logo from '../assets/d9691fbd-2061-4573-b2e9-85d30d67215f.jpeg';
 import {Link} from 'react-router-dom'
 import {SERVER_URL} from '../constant'
->>>>>>> 70a07410723939bde5c40575c5558271e27ef485
 
 function Footer() {
     const[category , setCategory] = useState([])
@@ -31,50 +26,6 @@ function Footer() {
           }, []);
     
   return (
-<<<<<<< HEAD
-    <div>
-      <footer className="bg-blue-500 text-white py-8">
-        <div className="container mx-auto flex flex-wrap justify-between">
-          <div className="w-full md:w-1/4 mb-6 md:mb-0">
-            <img src={logo} alt="ShopHorizon Logo" className="h-12 mb-4" />
-            <p className="text-gray-200">We aim to solve the problem of evaluating the marginal benefit (MB) and cost benefit (CB) of purchasing products from various e-shops</p>
-          </div>
-          <div className="w-full md:w-1/4 mb-6 md:mb-0">
-            <h3 className="text-lg font-bold mb-4">Pages</h3>
-            <ul className="text-gray-200 space-y-2">
-              <li><a href="#" className="hover:underline">Home</a></li>
-              <li><a href="#" className="hover:underline">Category</a></li>
-              <li><a href="#" className="hover:underline">About</a></li>
-              <li><a href="#" className="hover:underline">Contact</a></li>
-            </ul>
-          </div>
-          <div className="w-full md:w-1/4 mb-6 md:mb-0">
-            <h3 className="text-lg font-bold mb-4">Categories</h3>
-            <ul className="text-gray-200 space-y-2">
-              <li><a href="#" className="hover:underline">Electronics</a></li>
-              <li><a href="#" className="hover:underline">Sports & Outdoors</a></li>
-              <li><a href="#" className="hover:underline">Clothing</a></li>
-              <li><a href="#" className="hover:underline">Furniture</a></li>
-              <li><a href="#" className="hover:underline">Others</a></li>
-            </ul>
-          </div>
-          <div className="w-full md:w-1/4">
-            <h3 className="text-lg font-bold mb-4">Subscribe</h3>
-            <p className="text-gray-200 mb-4">Subscribe to get the latest news from us</p>
-            <button className="bg-white text-blue-500 px-4 py-2 rounded-full">Subscribe</button>
-            <div className="flex space-x-4 mt-4">
-              <a href="#" className="text-white hover:text-gray-200"><i className="fab fa-twitter fa-lg"></i></a>
-              <a href="#" className="text-white hover:text-gray-200"><i className="fab fa-instagram fa-lg"></i></a>
-              <a href="#" className="text-white hover:text-gray-200"><i className="fab fa-facebook fa-lg"></i></a>
-            </div>
-          </div>
-        </div>
-        <div className="border-t border-gray-400 mt-8 pt-4 text-center">
-          <p className="text-gray-200">&copy; ShopHorizon 2024, All rights reserved.</p>
-        </div>
-      </footer>
-    </div>
-=======
     <footer className="w-full">
     <div className=" px-4 sm:px-6 lg:px-8 bg-blue-400">
     
@@ -120,7 +71,7 @@ function Footer() {
       
         <div className="py-7 border-t border-gray-200">
             <div className="flex items-center justify-center flex-col lg:justify-between lg:flex-row">
-                <span className="text-sm text-white ">©<a href="https://pagedone.io/">ShopHorizon</a> 2024, All rights reserved.</span>
+                <span className="text-sm text-white ">©️<a href="https://pagedone.io/">ShopHorizon</a> 2024, All rights reserved.</span>
                 <div className="flex mt-4 space-x-4 sm:justify-center lg:mt-0 ">
                     <a href="https://x.com/"  className="w-8 h-8 rounded-full transition-all duration-500 flex justify-center items-center bg-[#33CCFF] hover:bg-[#f7444e]">
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -149,7 +100,6 @@ function Footer() {
     </div>
 </footer>
 
->>>>>>> 70a07410723939bde5c40575c5558271e27ef485
   )
 }
 
