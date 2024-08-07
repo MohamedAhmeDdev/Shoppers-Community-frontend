@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ClipLoader from 'react-spinners/ClipLoader';
+import {SERVER_URL} from '../constant'
 
 function AuthenticateUser() {
   const [message, setMessage] = useState('');
@@ -11,12 +12,13 @@ function AuthenticateUser() {
   useEffect(() => {
     const verifyUser = async () => {
       try {
-        const response = await fetch(`https://shoppers-community-server.onrender.com/verify/${token}`);
+        const response = await fetch(`${SERVER_URL}/verify/${token}`);
         if (!response.ok) {
           throw new Error('Failed to verify the user.');
         }
         const data = await response.json();
         setMessage(data.message);
+        console.log(data.message);
         setIsVerified(true);
         console.log(data);
       } catch (error) {

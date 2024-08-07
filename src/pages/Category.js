@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 
 function Category() {
   const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -13,12 +11,9 @@ function Category() {
       .then(response => response.json())
       .then(data => {
         setCategories(data);
-        setLoading(false);
       })
       .catch(error => {
         console.error('Error fetching the data:', error);
-        setError('Failed to load categories');
-        setLoading(false);
       });
   }, []);
 
@@ -49,7 +44,7 @@ function Category() {
               {categories.map(category => (
                  <Link to={`/filter/${category.id}`}>
                 <div key={category.id} className="relative group flex justify-center items-center h-72 w-72">
-                  <img className="object-center object-cover h-full w-full bg-gray-50 animate-pulse"  />
+                  <img className="object-center object-cover h-full w-full bg-gray-50 animate-pulse" alt={category.id} />
                   <button className="bg-gray-200 animate-pulse dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 bottom-4 z-10 absolute text-base font-medium leading-none text-gray-800 py-3 w-36">
                   {''}
                   </button>
