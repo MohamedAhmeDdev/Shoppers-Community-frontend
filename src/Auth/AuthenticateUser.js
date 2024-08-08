@@ -22,7 +22,7 @@ function AuthenticateUser() {
         setIsVerified(true);
         console.log(data);
       } catch (error) {
-        console.error('There was an error verifying your email.');
+        setMessage('There was an error verifying your email.');
       } finally {
         setTimeout(() => {
           setLoading(false);
