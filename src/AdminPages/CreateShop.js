@@ -12,7 +12,7 @@ function CreateShop() {
               className="block text-gray-700 text-sm font-bold mb-2">
               Shop Name
             </label>
-            <input 
+            <input
               type="text" 
               id="shopName" 
               name="shopName" 
@@ -31,4 +31,6 @@ function CreateShop() {
   );
 }
 
+
 export default CreateShop;
+

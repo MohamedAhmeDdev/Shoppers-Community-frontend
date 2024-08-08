@@ -25,8 +25,8 @@ function ForgotPassword() {
       });
       const result = await response.json();
 
-      if (result.success) {
-        setSuccess('Password reset link sent!');
+      if (response.ok) {
+        setSuccess(result.message);
         setEmail('');
       } else {
         setError(result.message); 
