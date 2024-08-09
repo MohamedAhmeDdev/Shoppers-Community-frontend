@@ -81,7 +81,7 @@ function App() {
                                     <Route path="/product" element={<Product />}  />
                                     <Route path="/createProduct" element={<CreateProduct/>} />
                                     <Route path="/createShop" element={<CreateShop/>} />
-                                    <Route path="/createShop" element={<CreateCategory/>} />
+                                    <Route path="/create-category" element={<CreateCategory/>} />
                                 </Routes>
                             </div>
                         </div>
