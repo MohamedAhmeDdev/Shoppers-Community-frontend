@@ -71,7 +71,7 @@ function Category() {
                     {category.name}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <img className="w-24 h-24 object-cover" src={category.image} alt={category.name} />
+                    <img className="w-24 h-24 object-cover" src={category.category_image} alt={category.name} />
                   </td>
                 </tr>
               ))}

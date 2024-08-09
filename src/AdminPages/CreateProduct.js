@@ -5,6 +5,7 @@ import ClipLoader from 'react-spinners/ClipLoader';
 
 export default function CreateProduct() {
   const [shops, setShops] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [errors, setErrors] = useState({});
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
@@ -28,6 +29,28 @@ export default function CreateProduct() {
 
     fetchShops();
   }, []);
+
+
+
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(`${SERVER_URL}/categories`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch categories');
+        }
+        const data = await response.json();
+        setCategories(data);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -171,10 +194,12 @@ export default function CreateProduct() {
             onChange={(e) => setCategory(e.target.value)}
             className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm ${errors.category ? 'border-red-500' : ''} focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
           >
-            <option value="">Select a category</option>
-            <option value="electronics">Electronics</option>
-            <option value="clothing">Clothing</option>
-            <option value="home">Sports & Outdoors</option>
+           <option value="">Select a shop</option>
+            {categories.map((category) => (
+              <option key={category.name} value={category.name}>
+                {category.name}
+              </option>
+            ))}
           </select>
           {errors.category && <p className="text-red-500 text-sm">{errors.category}</p>}
         </div>
