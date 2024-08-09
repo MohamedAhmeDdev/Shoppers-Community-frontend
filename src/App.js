@@ -26,6 +26,7 @@ import Sidebar from './AdminPages/Sidebar';
 import CategoryList from './AdminPages/Category';
 import { checkToken } from './utils/TokenExp';
 import { UseAuthContext } from './hook/UseAuthContext';
+import EditProduct from "./AdminPages/EditProduct";
 
 
 
@@ -78,7 +79,8 @@ function App() {
                                     <Route path="/shops" element={<Shop />} />
                                     <Route path="/categoryList" element={<CategoryList/>} />
                                     <Route path="/user" element={<User/>} />
-                                    <Route path="/product" element={<Product />}  />
+                                    <Route path="/product/:shop_id" element={<Product />}  />
+                                    <Route path="/editProduct/:product_id" element={<EditProduct/>} />
                                     <Route path="/createProduct" element={<CreateProduct/>} />
                                     <Route path="/createShop" element={<CreateShop/>} />
                                     <Route path="/create-category" element={<CreateCategory/>} />

@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { SERVER_URL } from '../constant';
 import ClipLoader from 'react-spinners/ClipLoader';
+import { useParams } from 'react-router-dom';
 
-export default function CreateProduct() {
+export default function EditProduct() {
   const [shops, setShops] = useState([]);
   const [errors, setErrors] = useState({});
   const [name, setName] = useState('');
@@ -15,6 +16,7 @@ export default function CreateProduct() {
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const { product_id } = useParams();
 
   useEffect(() => {
     const fetchShops = async () => {
@@ -28,6 +30,34 @@ export default function CreateProduct() {
 
     fetchShops();
   }, []);
+
+
+  useEffect(() => {
+  const getProductsById = async (e) => {
+    try {
+      const response = await axios.get(`${SERVER_URL}/product/${product_id}`)
+      .then((response) => {
+        console.log(response.data.category.name);
+        setName(response.data.name);
+        setPrice(response.data.price);
+        setRatings(response.data.ratings);
+        setCategory(response.data.category.name);
+        setPayment(response.data.mode_of_payment);
+        setShop(response.data.shop.name);
+        setImage(response.data.product_image);
+      })
+     
+    } catch (error) {
+      console.error('Error fetching product:', error);
+      setLoading(false);
+    }
+  }
+
+ 
+  getProductsById()
+}, [product_id]);
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,7 +89,7 @@ export default function CreateProduct() {
     formData.append('file', image);
 
     try {
-      const response = await axios.post(`${SERVER_URL}/create_products`, formData, {
+      const response = await axios.put(`${SERVER_URL}/update_products/${product_id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -67,14 +97,6 @@ export default function CreateProduct() {
 
       if (response.status === 200 || response.status === 201) {
         setMessage('Product created successfully.');
-        setName('');
-        setPrice('');
-        setRatings('');
-        setCategory('');
-        setPayment('');
-        setShop('');
-        setImage(null);
-        setErrors({});
         setTimeout(() => setMessage(''), 3000);
       } else {
         setErrors({ general: 'Failed to create product. Please try again.' });
@@ -204,6 +226,15 @@ export default function CreateProduct() {
           <label htmlFor="product-image" className="block text-sm font-medium text-gray-700">
             Product Image
           </label>
+          {image && (
+            <div className="mb-4">
+              <img
+                src={typeof image === 'string' ? image : URL.createObjectURL(image)}
+                alt="Product Preview"
+                className="h-40 w-40 object-cover rounded-md"
+              />
+            </div>
+          )}
           <input
             id="product-image"
             name="productImage"
@@ -227,3 +258,4 @@ export default function CreateProduct() {
     </div>
   );
 }
+
