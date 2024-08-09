@@ -10,7 +10,7 @@ function CategoryProduct({ productList }) {
     
         return () => clearTimeout(timeout);
     }, []);
-
+ 
     return (
         <div>
             <h2 className="text-xl font-semibold mb-4">All Products</h2>

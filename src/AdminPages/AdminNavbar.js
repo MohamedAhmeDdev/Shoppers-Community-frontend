@@ -1,8 +1,5 @@
-import { useLocation } from 'react-router-dom';
-
-
 export default function AdminNavbar({ showSidebar, setShowSidebar }) {
-    const location = useLocation().pathname;
+  
 
     return (
         <nav className="bg-orange md:ml-64 py-6 px-3">

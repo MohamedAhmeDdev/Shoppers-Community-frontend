@@ -14,13 +14,33 @@ function CreateCategory() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Category Added:', formData);
-    setFormData({
-      name: '',
-      image: '',
-    });
+
+    const categoryData = new FormData();
+    categoryData.append('name', formData.name);
+    categoryData.append('image', formData.image);
+
+    try {
+      const response = await fetch('http://localhost:5000/categories', {
+        method: 'POST',
+        body: categoryData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add category');
+      }
+
+      const result = await response.json();
+      console.log('Category Added:', result);
+
+      setFormData({
+        name: '',
+        image: '',
+      });
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
