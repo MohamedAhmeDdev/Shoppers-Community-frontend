@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { SERVER_URL } from '../constant';
 import ClipLoader from 'react-spinners/ClipLoader';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function CreateCategory() {
   const [name, setName] = useState('');
@@ -9,6 +10,7 @@ function CreateCategory() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
  
   
@@ -45,6 +47,7 @@ function CreateCategory() {
         setName('');
         setImage('');
         setTimeout(() => setMessage(''), 3000);
+        navigate('/categoryList');
       } else {
         setErrors({ general: response.data.message });
       }
