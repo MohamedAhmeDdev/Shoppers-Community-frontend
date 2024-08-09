@@ -1,11 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function CreateShop() {
+  const [shopName, setShopName] = useState('');
+
+  const handleChange = (e) => {
+    setShopName(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const shopData = { name: shopName };
+
+    try {
+      const response = await fetch('http://localhost:5000/shops', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(shopData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create shop');
+      }
+
+      const result = await response.json();
+      console.log('Shop created:', result);
+
+      setShopName('');
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
         <h2 className="text-2xl font-bold mb-6 text-center">Create Shop</h2>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label 
               htmlFor="shopName" 
@@ -16,9 +49,12 @@ function CreateShop() {
               type="text" 
               id="shopName" 
               name="shopName" 
+              value={shopName}
+              onChange={handleChange}
               placeholder="Enter shop name"
               className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required/>
+              required
+            />
           </div>
           <button 
             type="submit" 
@@ -31,4 +67,4 @@ function CreateShop() {
   );
 }
 
-export default CreateShop;
+export default CreateShop;;
