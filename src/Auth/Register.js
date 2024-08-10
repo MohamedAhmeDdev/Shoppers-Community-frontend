@@ -8,6 +8,7 @@ function Register() {
   const [last_name, setLast_name] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -49,6 +50,7 @@ function Register() {
           first_name,
           last_name,
           email,
+          role,
           password,
           confirmPassword,
         }),
@@ -115,6 +117,21 @@ function Register() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
+                {errors.email && <div className="text-red-500 text-sm capitalize rounded-md">{errors.email}</div>}
+              </div>
+              <div className="mb-3">
+                <label htmlFor="email" className="mb-2 text-sm text-start font-semibold text-gray-400">Role</label>
+                <select
+                id="role"
+                name="role"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm ${errors.payment ? 'border-red-500' : ''} focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+               >
+                <option value="">Select Role</option>
+                <option value="shop owner">Shop Owner</option>
+                <option value="user">user</option>
+              </select>
                 {errors.email && <div className="text-red-500 text-sm capitalize rounded-md">{errors.email}</div>}
               </div>
               <div className="mb-3">

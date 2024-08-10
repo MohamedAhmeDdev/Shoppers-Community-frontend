@@ -5,6 +5,7 @@ import { SERVER_URL } from '../constant';
 
 function Shop() {
   const [shops, setShops] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchShops = async () => {
@@ -13,6 +14,8 @@ function Shop() {
         setShops(response.data);
       } catch (error) {
         console.error('Error fetching shops:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -31,22 +34,13 @@ function Shop() {
 
       <h1 className="text-2xl font-bold mb-6">Shops</h1>
 
-      {shops.length === 0 ? (
-           <div className="overflow-x-auto">
-           <table className="min-w-full bg-white border border-gray-200 divide-y divide-gray-200">
-             <thead className="bg-gray-100">
-               <tr className="bg-gray-100 border-b">
-                 <th className="py-2 px-4 text-left text-gray-600">Shop Id</th>
-                 <th className="py-2 px-4 text-left text-gray-600">Shop Name</th>
-               </tr>
-             </thead>
-             <tbody>
-              <tr>
-              <td className="px-6 py-4 text-left whitespace-nowrap text-sm text-gray-500">No shops found.</td>
-              </tr>
-             </tbody>
-           </table>
-         </div>
+      {isLoading ? (
+        <div className="flex justify-center items-center h-64">
+          <svg className="animate-spin h-8 w-8 text-blue-500" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+          </svg>
+        </div>
       ) : (
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white border border-gray-200 divide-y divide-gray-200">

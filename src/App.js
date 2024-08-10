@@ -27,6 +27,7 @@ import CategoryList from './AdminPages/Category';
 import { checkToken } from './utils/TokenExp';
 import { UseAuthContext } from './hook/UseAuthContext';
 import EditProduct from "./AdminPages/EditProduct";
+import RouteProtection from './utils/RouteProtection';
 
 
 
@@ -76,14 +77,14 @@ function App() {
                             <Sidebar />
                             <div className="md:ml-64">
                                 <Routes>
-                                    <Route path="/shops" element={<Shop />} />
-                                    <Route path="/categoryList" element={<CategoryList/>} />
-                                    <Route path="/user" element={<User/>} />
-                                    <Route path="/product/:shop_id" element={<Product />}  />
-                                    <Route path="/editProduct/:product_id" element={<EditProduct/>} />
-                                    <Route path="/createProduct" element={<CreateProduct/>} />
-                                    <Route path="/createShop" element={<CreateShop/>} />
-                                    <Route path="/create-category" element={<CreateCategory/>} />
+                                    <Route path="/shops" element={<RouteProtection element={<Shop/> }/>} />
+                                    <Route path="/categoryList" element={<RouteProtection  element={<CategoryList/>}/>} />
+                                    <Route path="/user" element={<RouteProtection element={<User/>}/>} />
+                                    <Route path="/product/:shop_id" element={<RouteProtection element={<Product />}/>} />
+                                    <Route path="/editProduct/:product_id" element={<RouteProtection element={<EditProduct/>}/>} />
+                                    <Route path="/createProduct" element={<RouteProtection element={<CreateProduct/>}/>} />
+                                    <Route path="/createShop" element={<RouteProtection element={<CreateShop/>}/>} />
+                                    <Route path="/create-category" element={<RouteProtection element={<CreateCategory/>}/>} />
                                 </Routes>
                             </div>
                         </div>

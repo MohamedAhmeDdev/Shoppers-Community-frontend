@@ -52,17 +52,21 @@ function Login() {
   
       if (response.ok) {
         const user = result; 
-        console.log(user);
-        setEmail('');
-        setPassword('');
         setErrors({});
-        localStorage.setItem("user", JSON.stringify(user));
-        dispatch({ type: "LOGIN", payload: user });
-        navigate('/');
+     if(user.role === 'shop owner'){
+      localStorage.setItem("user", JSON.stringify(user));
+      dispatch({ type: "LOGIN", payload: user });
+      navigate('/shops');
+     }else{
+      localStorage.setItem("user", JSON.stringify(user));
+      dispatch({ type: "LOGIN", payload: user });
+      navigate('/');
+     }
       } else {
         setErrors({ general: result.message });
       }
     } catch (error) {
+      console.log(error);
       setErrors({ general: 'An error occurred. Please try again.' });
     } finally {
       setLoading(false);

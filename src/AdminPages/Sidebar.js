@@ -1,12 +1,23 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink,useNavigate } from 'react-router-dom';
 import AdminNavbar from './AdminNavbar';
+import { UseAuthContext } from "../hook/UseAuthContext";
 
 
 
 export default function Sidebar() {
     const [showSidebar, setShowSidebar] = useState('-left-64');
+    const { dispatch,user } = UseAuthContext();
+  const navigate = useNavigate()
  
+
+  const handleLogout = async () => {
+    localStorage.removeItem("user");
+    dispatch({ type: "LOGOUT" });
+    navigate("/");
+  };
+  
+
     return (
         <>
             <AdminNavbar
@@ -76,7 +87,7 @@ export default function Sidebar() {
                         </ul>
 
                         <ul className="flex-col min-w-full flex list-none absolute bottom-0">
-                            <li className="rounded-lg">
+                            <li onClick={handleLogout} className="rounded-lg">
                                 <div 
                                  
                                     className='cursor-pointer flex items-center gap-4 text-sm font-light px-2 py-3 rounded-lg'

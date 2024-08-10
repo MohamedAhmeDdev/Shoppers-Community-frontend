@@ -51,8 +51,8 @@ useEffect(() => {
           {users.map(user => (
             <tr key={user.id} className="border-b border-gray-200">
               <td className="py-2 px-4 text-gray-700">{user.id}</td>
-              <td className="py-2 px-4 text-gray-700">{user.firstName}</td>
-              <td className="py-2 px-4 text-gray-700">{user.lastName}</td>
+              <td className="py-2 px-4 text-gray-700">{user.first_name}</td>
+              <td className="py-2 px-4 text-gray-700">{user.last_name}</td>
               <td className="py-2 px-4 text-gray-700">{user.email}</td>
             </tr>
           ))}
