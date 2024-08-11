@@ -9,7 +9,6 @@ test('renders Category component', () => {
     </MemoryRouter>
   );
 
-  // Check if the heading is in the document
   expect(screen.getByText(/Shop By Category/i)).toBeInTheDocument();
 });
 

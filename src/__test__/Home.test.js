@@ -9,7 +9,6 @@ test('renders Home component', () => {
     </MemoryRouter>
   );
 
-  // Check if title is in the document
   expect(screen.getByText(/Find The Best Price/i)).toBeInTheDocument();
   expect(screen.getByText(/Shop By Category/i)).toBeInTheDocument();
   expect(screen.getByText(/Keep Updated/i)).toBeInTheDocument();
@@ -22,8 +21,8 @@ test('shows loading skeletons before categories are loaded', () => {
     </MemoryRouter>
   );
 
-  // Check for the loading state (e.g., pulsating skeleton)
-  expect(screen.getAllByRole('button').length).toBeGreaterThan(0); // Assuming buttons are displayed during loading
+  
+  expect(screen.getAllByRole('button').length).toBeGreaterThan(0);
 });
 
 
