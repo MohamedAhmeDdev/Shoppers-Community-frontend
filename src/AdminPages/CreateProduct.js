@@ -177,8 +177,8 @@ export default function CreateProduct() {
             className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm ${errors.payment ? 'border-red-500' : ''} focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
           >
             <option value="">Select payment mode</option>
-            <option value="credit-card">Upfront</option>
-            <option value="paypal">After Delivery</option>
+            <option value="Upfront">Upfront</option>
+            <option value="After Delivery">After Delivery</option>
           </select>
           {errors.payment && <p className="text-red-500 text-sm">{errors.payment}</p>}
         </div>

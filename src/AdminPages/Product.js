@@ -5,6 +5,7 @@ import { SERVER_URL } from '../constant';
 
 function Product() {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const { shop_id } = useParams();
 
   useEffect(() => {
@@ -14,6 +15,8 @@ function Product() {
         setProducts(response.data);
       } catch (error) {
         console.error('Error fetching shops:', error);
+      }finally {
+        setIsLoading(false);
       }
     };
 
@@ -38,27 +41,13 @@ function Product() {
         </button>
       </Link>
 
-      {products.length === 0 ? (
-         <table className="min-w-full divide-y divide-gray-200">
-         <thead className="bg-gray-50">
-           <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ratings</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mode of Payment</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product Image</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
-           </tr>
-         </thead>
-         <tbody>
-           <tr>
-             <td className="px-6 py-4 text-left whitespace-nowrap text-sm text-gray-500" colSpan="7">
-               No products found.
-             </td>
-           </tr>
-         </tbody>
-         </table>
+      {isLoading ? (
+        <div className="flex justify-center items-center h-64">
+          <svg className="animate-spin h-8 w-8 text-blue-500" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+          </svg>
+        </div>
       ) : (
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">

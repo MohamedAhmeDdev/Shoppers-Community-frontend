@@ -55,6 +55,7 @@ function Login() {
         setErrors({});
      if(user.role === 'shop owner'){
       localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("role", user.role); 
       dispatch({ type: "LOGIN", payload: user });
       navigate('/shops');
      }else{
