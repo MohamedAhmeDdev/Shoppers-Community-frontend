@@ -5,7 +5,7 @@ import { UseAuthContext } from "../hook/UseAuthContext";
 
 export default function Sidebar() {
     const [showSidebar, setShowSidebar] = useState('-left-64');
-    const { dispatch, user } = UseAuthContext();
+    const { dispatch} = UseAuthContext();
     const navigate = useNavigate();
 
     const handleLogout = async () => {
