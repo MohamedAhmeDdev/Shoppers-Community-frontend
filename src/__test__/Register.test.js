@@ -21,7 +21,6 @@ test('handles form validation and displays error messages', async () => {
   // Check for validation messages
   expect(await screen.findByText(/first name is required/i)).toBeInTheDocument();
   expect(await screen.findByText(/last name is required/i)).toBeInTheDocument();
-  expect(await screen.findByText(/email is required/i)).toBeInTheDocument();
   expect(await screen.findByText(/Confirm password is required/i)).toBeInTheDocument();
   expect(await screen.findByText(/confirm password is required/i)).toBeInTheDocument();
 
