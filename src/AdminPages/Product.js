@@ -32,7 +32,7 @@ function Product() {
       console.error('Error deleting product:', error);
     }
   };
-
+ 
   return (
     <div className="p-4">
       <Link to="/CreateProduct">
