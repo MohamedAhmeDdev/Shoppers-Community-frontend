@@ -32,6 +32,7 @@ function Navbar() {
 
   const handleLogout = async () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("role");
     dispatch({ type: "LOGOUT" });
     navigate("/");
   };
