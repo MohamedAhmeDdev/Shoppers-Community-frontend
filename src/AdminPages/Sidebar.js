@@ -52,7 +52,7 @@ export default function Sidebar() {
                                     Category
                                 </NavLink>
                             </li>
-                            <li className="rounded-lg mb-2">
+                            <li className="rounded-lg mb-2"> 
                                 <NavLink
                                     to="/user"
                                     className={({ isActive }) => `flex items-center gap-4 text-sm font-light px-2 py-3 rounded-lg ${isActive ? 'bg-blue-500 text-white shadow-md' : 'text-gray-700'}`}
