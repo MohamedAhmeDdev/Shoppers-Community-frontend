@@ -35,7 +35,7 @@ export default function EditProduct() {
   useEffect(() => {
   const getProductsById = async (e) => {
     try {
-      const response = await axios.get(`${SERVER_URL}/product/${product_id}`)
+     await axios.get(`${SERVER_URL}/product/${product_id}`)
       .then((response) => {
         console.log(response.data.category.name);
         setName(response.data.name);
