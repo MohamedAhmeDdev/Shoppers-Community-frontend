@@ -1,70 +1,83 @@
-# Getting Started with Create React App
+# SHOPHORIZON
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+*Date:* 12/08/2024
 
-## Available Scripts
+## Overview
 
-In the project directory, you can run:
+ShopHorizon is a robust e-commerce platform designed to enhance the online shopping experience. It provides users with a user-friendly interface to browse products, compare prices across various sites, and securely manage their shopping sessions. The platform is equipped with features that ensure both convenience and security for its users.
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- *User Authentication*
+  - Secure login and sign-up functionality
+  - Account creation and management
+  - Password recovery and account settings
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- *Product Catalog*
+  - Comprehensive listings of products
+  - Filter by categories, price ranges, and other attributes
+  - Advanced search functionality to find specific items
 
-### `npm test`
+- *Admin Dashboard*
+  - Manage and update product listings
+  - Oversee and configure multiple shops
+  - View and manage user accounts and activities
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- *Logout Functionality*
+  - Secure session termination to protect user data
 
-### `npm run build`
+- *Product Comparison*
+  - Compare prices and features of products from different shops
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- *User Reviews and Ratings*
+  - Allow users to rate and review products
+  - Display user-generated reviews on product pages
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- *Responsive Design*
+  - Optimized for both desktop and mobile devices
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Installation
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+To set up the ShopHorizon project locally, follow these steps:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. *Clone the Repository:*
+   bash
+   git clone https://github.com/yourusername/shophorizon.git
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. **Navigate to the Fronted:**
+   bash
+   cd frontend 
+   - install Dependencies
+   - npm install
+   -npm start
 
-## Learn More
+   
+   
+1. *Navigate to the server:*
+   ```bash
+   cd server
+   - pip install -r requirements.txt
+   -python app.py
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Live Link
+https://shoppers-community.vercel.app/
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Technologies
 
-### Code Splitting
+- *Frontend:*
+  - HTML
+  - CSS
+  - Tailwind css
+  - React
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- *Backend:*
+  - Python (Flask)
+  - Database (PostgreSQL, MySQL)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### License
+[MIT License](LICENSE)
+The content of this site is licensed under the MIT license
+Copyright (c) 2024.
