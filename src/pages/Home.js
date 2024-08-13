@@ -11,11 +11,24 @@ function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${SERVER_URL}/categories`)
-      .then(response => response.json())
-      .then(data => setCategories(data))
-      .catch(error => console.error('Error fetching the data:', error));
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(`${SERVER_URL}/categories`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setCategories(data);
+      } catch (error) {
+        console.error('Error fetching the data:', error);
+      }finally {
+        setIsLoading(false);
+      }
+    };
+  
+    fetchCategories();
   }, []);
+  
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -26,13 +39,6 @@ function Home() {
     navigate(`/QueryProduct?search=${encodeURIComponent(searchTerm)}`);
   };
 
-   useEffect(() => {
-  const timeout = setTimeout(() => {
-    setIsLoading(false);
-  }, 2000);
-
-  return () => clearTimeout(timeout);
-}, []);
 
 
   return (
@@ -78,19 +84,12 @@ function Home() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {isLoading ? (
-
-            <>
-              {categories.map(category => (
-                 <Link to={`/filter/${category.id}`}>
-                <div key={category.id} className="relative group flex justify-center items-center h-72 w-72">
-                  <img className="object-center object-cover h-full w-full bg-gray-50 animate-pulse" alt={category.name} />
-                  <button className="bg-gray-200 animate-pulse dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 bottom-4 z-10 absolute text-base font-medium leading-none text-gray-800 py-3 w-36">
-                  {''}
-                  </button>
-                </div>
-                </Link>
-              ))}
-              </>
+              <div className="flex justify-center items-center h-64">
+              <svg className="animate-spin h-8 w-8 text-blue-500" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+              </svg>
+            </div>
        ) : (
              <>
               {categories.map(category => (
