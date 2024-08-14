@@ -42,12 +42,12 @@ ShopHorizon is a robust e-commerce platform designed to enhance the online shopp
 To set up the ShopHorizon project locally, follow these steps:
 
 1. *Clone the Repository:*
-   bash
+   ```bash
    git clone https://github.com/yourusername/shophorizon.git
 
 
 1. **Navigate to the Fronted:**
-   bash
+   ```bash
    cd frontend 
    - install Dependencies
    - npm install
