@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useEffect } from 'react';
-import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Outlet,Navigate } from "react-router-dom";
 import Navbar from "./Component/Navbar";
 import Footer from "./Component/Footer";
 import Home from "./pages/Home";
@@ -28,6 +28,7 @@ import { checkToken } from './utils/TokenExp';
 import { UseAuthContext } from './hook/UseAuthContext';
 import EditProduct from "./AdminPages/EditProduct";
 import RouteProtection from './utils/RouteProtection';
+import WishList from "./pages/WishList";
 
 
 
@@ -63,6 +64,7 @@ function App() {
             <Route path="/filter/:category_id" element={<ProductFilter />} />
             <Route path="/QueryProduct" element={<QueryProduct />} />
             <Route path="/history" element={<SearchHistory />} />
+            <Route path="/wishList" element={<WishList/>} />
             <Route path="/user/:token" element={<AuthenticateUser />} />
             <Route path="/message" element={<Message />} />
           </Route>
@@ -85,11 +87,13 @@ function App() {
                                     <Route path="/createProduct" element={<RouteProtection element={<CreateProduct/>}/>} />
                                     <Route path="/createShop" element={<RouteProtection element={<CreateShop/>}/>} />
                                     <Route path="/create-category" element={<RouteProtection element={<CreateCategory/>}/>} />
+                                    <Route path="*" element={<Navigate to="/login" />} />
                                 </Routes>
                             </div>
                         </div>
                     }
                 />
+                 <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </BrowserRouter>
     </div>

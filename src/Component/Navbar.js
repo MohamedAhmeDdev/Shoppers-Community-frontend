@@ -3,10 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import logo from '../assets/d9691fbd-2061-4573-b2e9-85d30d67215f.jpeg';
 import { UseAuthContext } from "../hook/UseAuthContext";
+import { UseWishListContext } from "../hook/WishListCartContext";
+
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { dispatch,user } = UseAuthContext();
+  const { wishListItems } = UseWishListContext();
   const navigate = useNavigate()
 
   const toggleMenu = () => {
@@ -53,6 +56,22 @@ function Navbar() {
          </div>
 
           <div className="flex md:hidden">
+
+          {user ? (
+        <div class="relative right-7">
+        <Link to="/wishList">
+        <div class="bottom-4 absolute left-3 ">
+            <p class="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">{wishListItems.length}</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+            </svg>
+        </Link>
+        </div>
+            ) : 
+            null
+           }
+
             <button id="hamburger" onClick={toggleMenu}>
               <div className={`menu-icon text-white ${menuOpen ? 'hidden' : 'block'}`}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
@@ -65,6 +84,7 @@ function Navbar() {
                 </svg>
               </div>
             </button>
+            
           </div>
         </div>
 
@@ -76,6 +96,7 @@ function Navbar() {
               ) : 
               null
              }
+
             <Link to="/about" className="nav-link block md:inline-block text-white text-md font-semibold hover:text-black px-3 py-3 md:border-none">About us</Link>
             <Link to="/contact" className="nav-link block md:inline-block text-white text-md font-semibold hover:text-black px-3 py-3 md:border-none">Contact</Link>
             {user ? (
@@ -86,11 +107,29 @@ function Navbar() {
           </div>
         </div>
 
+
+        <div className='flex'>
         {user ? (
-         <button onClick={handleLogout} className="nav-link hidden sm:block text-white text-md font-semibold hover:text-black px-3 py-3 md:border-none">Logout</button>     
-        ):(
-          <Link to="/login" className="py-2 px-2 rounded-md bg-white text-black hover:text-blue-600 transition-all duration-300 hidden sm:block"> Sign In</Link>
-          )}
+        <div class="relative py-2 right-5 hidden md:block">
+        <Link to="/wishList">
+        <div class="bottom-7 absolute left-3">
+            <p class="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white">{wishListItems.length}</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+            </svg></Link>
+        </div>
+            ) : 
+            null
+           }
+
+        {user ? (
+                <button onClick={handleLogout} className="nav-link hidden md:block text-white text-md font-semibold hover:text-black px-3 py-3 md:border-none">Logout</button>     
+                ):(
+                  <Link to="/login" className="py-2 px-2 rounded-md bg-white text-black hover:text-blue-600 transition-all duration-300 hidden sm:block"> Sign In</Link>
+        )}
+        </div>
+     
 
 
 
