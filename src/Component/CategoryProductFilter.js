@@ -52,8 +52,7 @@ function CategoryProductFilter({ filterProductList, error }) {
                                             </div>
                                         </div>
                                       
-                                        {user && (
-                                                 <div className="flex justify-center items-center">
+                                        {user ? (
                                                         isAdded ? (
                                                             <div className="flex justify-center items-center">
                                                             <button
@@ -101,8 +100,7 @@ function CategoryProductFilter({ filterProductList, error }) {
                                                             </button>
                                                             </div>
                                                         )
-                                                        </div>
-                                                    )}
+                                                        ) : null}
                                     </div>
                                 </div>
                             );

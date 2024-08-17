@@ -55,8 +55,7 @@ function CategoryProduct({ productList }) {
                                                     </div>                                                
                                                 </div>
 
-                                                {user && (
-                                                 <div className="flex justify-center items-center">
+                                                {user ? (
                                                         isAdded ? (
                                                             <div className="flex justify-center items-center">
                                                             <button
@@ -103,8 +102,8 @@ function CategoryProduct({ productList }) {
                                                                 {" "} Add to Wishlist
                                                             </button>
                                                             </div>
-                                                    </div>
-                                                 )}
+                                                        )
+                                                        ) : null}
 
                                             </div>
                                         </div>
