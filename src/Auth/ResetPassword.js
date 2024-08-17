@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import {SERVER_URL} from '../constant'
+import { SERVER_URL } from '../constant';
 
 function ResetPassword() {
   const [password, setPassword] = useState('');
@@ -8,13 +8,24 @@ function ResetPassword() {
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const { token } = useParams();
-
+  
 
   const authResetPassword = async (e) => {
     e.preventDefault();
 
+    setError('');
+    setMessage('');
+
     if (!password || !confirmPassword) {
       setError('Please fill in all fields.');
+      return;
+    }
+    
+    if (password.length < 10) {
+      setError('Password must be at least 10 characters long.');
+      return;
+    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      setError('Password must include at least one special character.');
       return;
     }
     
@@ -40,7 +51,6 @@ function ResetPassword() {
       if (response.ok) {
         setPassword('');
         setConfirmPassword('');
-        setError('');
         setMessage(result.message);
       } else {
         setError(result.message);

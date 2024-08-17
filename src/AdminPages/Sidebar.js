@@ -52,17 +52,6 @@ export default function Sidebar() {
                                     Category
                                 </NavLink>
                             </li>
-                            <li className="rounded-lg mb-2"> 
-                                <NavLink
-                                    to="/user"
-                                    className={({ isActive }) => `flex items-center gap-4 text-sm font-light px-2 py-3 rounded-lg ${isActive ? 'bg-blue-500 text-white shadow-md' : 'text-gray-700'}`}
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-6 w-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-                                    </svg>
-                                    Users
-                                </NavLink>
-                            </li>
                             <li className="rounded-lg mb-2">
                                 <NavLink
                                     to="/createProduct"
@@ -72,6 +61,17 @@ export default function Sidebar() {
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
                                     </svg>
                                     Create Product
+                                </NavLink>
+                            </li>
+                            <li className="rounded-lg mb-2"> 
+                                <NavLink
+                                    to="/user"
+                                    className={({ isActive }) => `flex items-center gap-4 text-sm font-light px-2 py-3 rounded-lg ${isActive ? 'bg-blue-500 text-white shadow-md' : 'text-gray-700'}`}
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="h-6 w-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                    </svg>
+                                    Users
                                 </NavLink>
                             </li>
                         </ul>

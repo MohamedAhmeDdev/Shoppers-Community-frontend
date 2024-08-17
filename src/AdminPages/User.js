@@ -45,6 +45,7 @@ useEffect(() => {
             <th className="py-2 px-4 text-left text-gray-600">First Name</th>
             <th className="py-2 px-4 text-left text-gray-600">Last Name</th>
             <th className="py-2 px-4 text-left text-gray-600">Email</th>
+            <th className="py-2 px-4 text-left text-gray-600">Role</th>
           </tr>
         </thead>
         <tbody>
@@ -54,6 +55,7 @@ useEffect(() => {
               <td className="py-2 px-4 text-gray-700">{user.first_name}</td>
               <td className="py-2 px-4 text-gray-700">{user.last_name}</td>
               <td className="py-2 px-4 text-gray-700">{user.email}</td>
+              <td className="py-2 px-4 text-gray-700">{user.role}</td>
             </tr>
           ))}
         </tbody>

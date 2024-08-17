@@ -31,6 +31,8 @@ function QueryProductList({ results }) {
                                     <img className="object-cover w-full h-full" src={item.product_image} alt={`${item.name}`} />
                                 </div>
                                 <div className="mt-4 px-5 pb-5">
+                                <h5 className="text-md tracking-tight text-slate-900"><span className='font-bold'>Shop name:</span> {item.shop.name}</h5>
+
                                     <h5 className="text-md tracking-tight text-slate-900">{item.name}</h5>
                                     <div className="mt-2 mb-5 flex items-center justify-between">
                                         <p>

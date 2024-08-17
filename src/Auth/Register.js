@@ -30,7 +30,15 @@ function Register() {
     } else if (!emailRegex.test(email)) {
       newErrors.email = 'Invalid email format.';
     }
-    if (!password) newErrors.password = 'Password is required.';
+    if (!role) newErrors.role = 'Role is required.';
+
+    if (!password) {
+      newErrors.password = 'Password is required.';
+    } else if (password.length < 10) {
+      newErrors.password = 'Password must be at least 10 characters long.';
+    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      newErrors.password = 'Password must include at least one special character.';
+    }
     if (!confirmPassword) newErrors.confirmPassword = 'Confirm password is required.';
     if (password !== confirmPassword) newErrors.confirmPassword = 'Passwords do not match.';
 
@@ -132,7 +140,7 @@ function Register() {
                 <option value="shop owner">Shop Owner</option>
                 <option value="user">user</option>
               </select>
-                {errors.email && <div className="text-red-500 text-sm capitalize rounded-md">{errors.email}</div>}
+                {errors.role && <div className="text-red-500 text-sm capitalize rounded-md">{errors.role}</div>}
               </div>
               <div className="mb-3">
                 <label htmlFor="password" className="mb-2 text-sm text-start font-semibold text-gray-400">Password</label>
