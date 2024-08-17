@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SERVER_URL } from '../constant';
 import ClipLoader from 'react-spinners/ClipLoader';
+import { apiCall } from "../utils/apiCall";
 
 function CreateShop() {
   const [name, setName] = useState('');
@@ -22,28 +23,19 @@ function CreateShop() {
       return;
     }
 
-    const shopData = { name: name };
-
     try {
-      const response = await fetch(`${SERVER_URL}/create-shop`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(shopData),
+      const response = await apiCall('/create-shop', 'POST', {
+        name:name,
       });
 
-      if (response.ok) {
+      if (response.status === 201) {
         setName('');
         setMessage('Shop created successfully!');
         navigate('/shops');
-      } else {
-        const errorData = await response.json();
-        setErrors({ general: errorData.message });
-      }
+      } 
     } catch (error) {
       console.error('Error:', error);
-      setErrors({ general: 'Something went wrong. Please try again.' });
+      setErrors({ general: error.response.data.message });
     } finally {
       setLoading(false);
     }

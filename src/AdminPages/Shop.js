@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { SERVER_URL } from '../constant';
+import { apiCall } from "../utils/apiCall";
+
 
 function Shop() {
   const [shops, setShops] = useState([]);
@@ -10,7 +12,7 @@ function Shop() {
   useEffect(() => {
     const fetchShops = async () => {
       try {
-        const response = await axios.get(`${SERVER_URL}/shop`);
+        const response = await apiCall('/userShop','GET');
         setShops(response.data);
       } catch (error) {
         console.error('Error fetching shops:', error);
